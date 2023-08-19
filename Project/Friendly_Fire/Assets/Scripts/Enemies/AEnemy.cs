@@ -12,10 +12,15 @@ public abstract class AEnemy : MonoBehaviour, IComparable
     protected EnemyHealth m_EnemyHealth;
     protected bool m_Recoiling;
     protected int m_ID;
+    protected float m_SubstateDuration;
+    protected float m_SubstateStart;
     protected m_EnemyIAState m_CurrentState;
     protected enum m_EnemyIAState{
         CHASE, ATTACKING, COOLDOWN, PREPARING, DEATH
     }
+    public enum m_EnemySubstate{ NONE, DIZZY, SLOW, FROZEN}
+
+    protected m_EnemySubstate m_CurrentSubState;
     public abstract void Chase();
     public abstract void Die();
     public abstract void Spawn(Vector3 l_Position, Transform l_Player);
@@ -46,5 +51,12 @@ public abstract class AEnemy : MonoBehaviour, IComparable
             return m_ID-l_Enemy.getID();
         }
         return -200;
+    }
+
+    public void setEnemySubState(m_EnemySubstate l_SS, float l_Duration)
+    {
+        m_CurrentSubState = l_SS;
+        m_SubstateDuration = l_Duration;
+        m_SubstateDuration = Time.time;
     }
 }

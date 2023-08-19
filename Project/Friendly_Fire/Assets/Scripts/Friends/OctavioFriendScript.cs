@@ -22,7 +22,6 @@ public class OctavioFriendScript : OffensiveFriend, IRestartable
     {
         if (Time.time > m_LastActivation + m_CurrentCooldown)
         {
-            print("Time to activate OCTAVIO---------");
             ActivateFriendAbility();
             m_CurrentCooldown = Time.time;
         }
@@ -31,7 +30,6 @@ public class OctavioFriendScript : OffensiveFriend, IRestartable
 
     public override bool ActivateFriendAbility()
     {
-        print("ACtivatig octavio--------");
         GameObject l_GO;
         OctavioTentacleBullet l_Tentacle;
         for (int i= 0; i < m_NumerOfTentacles; i++)

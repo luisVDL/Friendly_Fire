@@ -40,12 +40,17 @@ public class ChaserEnemy : AEnemy, IRestartable
         
     void Start()
     {
+        
         m_EnemyHealth = GetComponent<EnemyHealth>();
         ExpManager.AddRestartElement(this);
     }
 
     void Update()
     {
+        if (m_SubstateStart + m_SubstateDuration < Time.time)
+        {
+            m_CurrentSubState = m_EnemySubstate.NONE;
+        }
         if (!m_Recoiling && m_Active)
         {
             Chase();
@@ -54,8 +59,37 @@ public class ChaserEnemy : AEnemy, IRestartable
     
     public override void Chase()
     {
-        Vector2 l_direction = new Vector2(m_PlayerToChase.position.x-m_EnemyRB.position.x, m_PlayerToChase.position.y-m_EnemyRB.position.y);
-        m_EnemyRB.position += l_direction.normalized * m_ChaseSpeed * Time.deltaTime;
+        
+        
+        //THIS WON'T STACK SUBSTATES AND I DON'T WANT IT
+        /*
+         * - I need to stack substates
+         * - I need to change the current speed for SLOW state (and possible FAST state)
+         * - I need to nullify every action during the FROZEN state
+         * - I need to change the direction in the DIZZY state
+         * - Maybe I need a list to store this substates and the start and the end of each state
+         */
+        Vector2 l_direction;
+        switch (m_CurrentSubState)
+        {
+            case m_EnemySubstate.NONE:
+               l_direction = new Vector2(m_PlayerToChase.position.x-m_EnemyRB.position.x, m_PlayerToChase.position.y-m_EnemyRB.position.y);
+               m_EnemyRB.position += l_direction.normalized * m_ChaseSpeed * Time.deltaTime;
+               break;
+           case m_EnemySubstate.DIZZY:
+               l_direction = new Vector2(m_EnemyRB.position.x-m_PlayerToChase.position.x, m_EnemyRB.position.y-m_PlayerToChase.position.y);
+               m_EnemyRB.position += l_direction.normalized * m_ChaseSpeed * Time.deltaTime;
+               break;
+           case m_EnemySubstate.FROZEN:
+               break;
+           case m_EnemySubstate.SLOW:
+               l_direction = new Vector2(m_PlayerToChase.position.x-m_EnemyRB.position.x, m_PlayerToChase.position.y-m_EnemyRB.position.y);
+               m_EnemyRB.position += l_direction.normalized * (m_ChaseSpeed/2) * Time.deltaTime;
+               break;
+               
+           
+        }
+        
     }
 
     public override void Die()
@@ -70,6 +104,10 @@ public class ChaserEnemy : AEnemy, IRestartable
 
     public override void Spawn(Vector3 l_Position, Transform l_Player)
     {
+        m_CurrentSubState = m_EnemySubstate.NONE;
+        m_SubstateDuration = 0;
+        m_SubstateStart = 0;
+        
         m_EnemyHealth = GetComponent<EnemyHealth>();
         transform.position = l_Position;
         m_Recoiling = false;
