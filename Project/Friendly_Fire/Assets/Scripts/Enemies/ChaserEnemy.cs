@@ -27,10 +27,8 @@ public class ChaserEnemy : AEnemy, IRestartable
     {
         if (other.tag == "Friend Ability")
             {
-                print("Call an ambulance");
                 m_EnemyRB.velocity = new Vector2(0f, 0f);
                 AbsBullet l_bullet = other.GetComponent<AbsBullet>();
-                print(l_bullet.GetDamage());
                 TakeDamage(l_bullet.GetDamage(), (transform.position-other.transform.position).normalized);
                 l_bullet.DeactivateBullet();
             }else if (other.tag == "Player")

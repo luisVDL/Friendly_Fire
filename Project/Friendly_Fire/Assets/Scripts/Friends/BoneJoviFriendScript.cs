@@ -18,7 +18,7 @@ public class BoneJoviFriendScript : OffensiveFriend, IRestartable
     
     public override bool ActivateFriendAbility()
     {
-        
+        print("Activation");
         m_Ability = true;
         
         m_LastTimeAbility = Time.time;
@@ -37,8 +37,16 @@ public class BoneJoviFriendScript : OffensiveFriend, IRestartable
             l_GO = m_BonePool.EnableObject();
             l_Bone = l_GO.GetComponent<BoneBulletBoneJovi>();
             l_Bone.setParentFriend(this);
-            l_Bone.FireBullet(NewEnemyManager.getEnemyPosition() - transform.position, transform.position,
-                transform.rotation);
+            try
+            {
+                l_Bone.FireBullet(NewEnemyManager.getEnemyPosition() - transform.position, transform.position,
+                    transform.rotation);
+            }
+            catch (Exception e)
+            {
+                print("Doesn't get the location");
+            }
+            
             yield return new WaitForSeconds(m_CooldownShot);
         }
         m_Ability = false;
@@ -59,7 +67,7 @@ public class BoneJoviFriendScript : OffensiveFriend, IRestartable
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (m_LastTimeAbility + m_CooldownAbility< Time.time  && !m_Ability)
         {

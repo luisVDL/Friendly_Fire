@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
@@ -21,6 +22,7 @@ public class OctavioFriendScript : OffensiveFriend, IRestartable
     {
         if (Time.time > m_LastActivation + m_CurrentCooldown)
         {
+            print("Time to activate OCTAVIO---------");
             ActivateFriendAbility();
             m_CurrentCooldown = Time.time;
         }
@@ -29,14 +31,23 @@ public class OctavioFriendScript : OffensiveFriend, IRestartable
 
     public override bool ActivateFriendAbility()
     {
+        print("ACtivatig octavio--------");
         GameObject l_GO;
         OctavioTentacleBullet l_Tentacle;
         for (int i= 0; i < m_NumerOfTentacles; i++)
         {
             l_GO = m_TentaclesPool.EnableObject();
-             l_Tentacle = l_GO.GetComponent<OctavioTentacleBullet>();
-             l_Tentacle.setParentFriend(this);
-            l_Tentacle.FireBullet(Vector3.zero, NewEnemyManager.getEnemyPosition(),transform.rotation);
+            l_Tentacle = l_GO.GetComponent<OctavioTentacleBullet>();
+            l_Tentacle.setParentFriend(this);
+            try
+            {
+                l_Tentacle.FireBullet(Vector3.zero, NewEnemyManager.getEnemyPosition(),transform.rotation);
+            }
+            catch (Exception e)
+            {
+                
+            }
+            
         }
         
 
