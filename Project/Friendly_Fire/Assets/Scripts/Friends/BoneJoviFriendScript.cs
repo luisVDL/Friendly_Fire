@@ -12,7 +12,6 @@ public class BoneJoviFriendScript : OffensiveFriend, IRestartable
     [SerializeField] private float m_CooldownAbility = 4f;
     [SerializeField] private float m_CooldownShot = 0.2f;
     [SerializeField] private PoolScript m_BonePool;
-    private float m_LastTimeAbility;
     private bool m_Ability;
     
     

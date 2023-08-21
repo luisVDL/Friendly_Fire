@@ -38,7 +38,7 @@ public class ChaserEnemy : AEnemy, IRestartable
             }else if (other.tag == "Friend Status Ability")
             {
                 m_EnemyRB.velocity = new Vector2(0f, 0f);
-                SubStatusSetter l_Setter = other.GetComponent<SubStatusSetter>();
+                DizzySubStatusSetter l_Setter = other.GetComponent<DizzySubStatusSetter>();
                 l_Setter.setSubStatus(this);
                 //
                 //Take the status from a method and add it to the list

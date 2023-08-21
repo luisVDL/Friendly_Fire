@@ -30,6 +30,7 @@ public abstract class AFriend : MonoBehaviour
     [SerializeField] protected float m_InitialCooldown;
     protected float m_CurrentCooldown;
     protected bool m_FriendIsActive;
+    protected float m_LastTimeAbility;
     
     //Not sure if I need it 
     //protected string m_ID;

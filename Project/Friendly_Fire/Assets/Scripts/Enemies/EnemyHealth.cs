@@ -51,7 +51,15 @@ public class EnemyHealth : HealthSystem
         //added to control colliders
         m_TriggerCollider.enabled = false;
         m_RigidCollider.enabled = false;
-        GetComponentInParent<AEnemy>().Die();
+        try
+        {
+            GetComponentInParent<AEnemy>().Die();
+        }
+        catch (Exception e)
+        {
+            
+        }
+        
     }
     
     
