@@ -25,6 +25,7 @@ public abstract class AFriend : MonoBehaviour
 
 
     [SerializeField] protected FriendType m_FriendType;
+    [SerializeField] protected Animator m_Animator;
 
     //We need two cooldowns in order to be able to change it in runtime
     [SerializeField] protected float m_InitialCooldown;

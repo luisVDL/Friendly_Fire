@@ -1447,9 +1447,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MaxNumberOfEnemies: 300
   m_Player: {fileID: 3288810749344441663}
-  m_MinDistance: 5
-  m_MaxDistance: 10
-  m_WaveCooldown: 5
+  m_MinDistance: 2
+  m_MaxDistance: 5
+  m_WaveCooldown: 1
   m_EnemyClasses:
   - {fileID: 1183264647}
   m_UpLeftLimit: {fileID: 1323900443}
@@ -1758,10 +1758,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 750333239}
     m_Modifications:
-    - target: {fileID: 2149918779734380348, guid: 7884a676759a52845b14c6d2b12fdd7f, type: 3}
-      propertyPath: m_FriendActivation
-      value: 
-      objectReference: {fileID: 4043604966270608665}
     - target: {fileID: 2149918779734380349, guid: 7884a676759a52845b14c6d2b12fdd7f, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1810,13 +1806,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: 01_OctaviusFriend_Prefab
       objectReference: {fileID: 0}
+    - target: {fileID: 4043604966270608665, guid: 7884a676759a52845b14c6d2b12fdd7f, type: 3}
+      propertyPath: m_TentaclesPool
+      value: 
+      objectReference: {fileID: 244824464}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7884a676759a52845b14c6d2b12fdd7f, type: 3}
---- !u!1 &2723497962890258982 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2723497964163642517, guid: 7884a676759a52845b14c6d2b12fdd7f, type: 3}
-  m_PrefabInstance: {fileID: 2723497962890258981}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3039955912661136837 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1653086131217919300, guid: 0518a22308ddf2b40a156bd19df6bf3c, type: 3}
@@ -1967,23 +1962,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2149918779734380349, guid: 7884a676759a52845b14c6d2b12fdd7f, type: 3}
   m_PrefabInstance: {fileID: 2723497962890258981}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4043604966270608665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2723497962890258982}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d21c2fea7cb5024d84aa45660a3650a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_FriendType: 0
-  m_InitialCooldown: 3
-  m_InitialDamage: 10
-  m_TentaclesPool: {fileID: 244824464}
-  m_NumerOfTentacles: 5
 --- !u!1001 &4377752653751228545
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2236,10 +2214,6 @@ PrefabInstance:
       propertyPath: m_BonePool
       value: 
       objectReference: {fileID: 1434459725}
-    - target: {fileID: 7588481445488409822, guid: 7560031e3c5a9ea40955106b48a2afc4, type: 3}
-      propertyPath: m_InitialDamage
-      value: 40
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7560031e3c5a9ea40955106b48a2afc4, type: 3}
 --- !u!1001 &6584340428737045373
@@ -2384,6 +2358,10 @@ PrefabInstance:
     - target: {fileID: 8783665949032283716, guid: ef07b37da749f654abcf8ffb44168341, type: 3}
       propertyPath: m_Name
       value: HUD_Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 8783665949032283716, guid: ef07b37da749f654abcf8ffb44168341, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8783665949032283736, guid: ef07b37da749f654abcf8ffb44168341, type: 3}
       propertyPath: m_Pivot.x

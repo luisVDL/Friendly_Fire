@@ -22,6 +22,7 @@ public class OctavioFriendScript : OffensiveFriend, IRestartable
     {
         if (Time.time > m_LastActivation + m_CurrentCooldown)
         {
+            m_Animator.SetTrigger("Attack");
             ActivateFriendAbility();
             m_CurrentCooldown = Time.time;
         }

@@ -18,7 +18,7 @@ public class BoneJoviFriendScript : OffensiveFriend, IRestartable
     public override bool ActivateFriendAbility()
     {
         m_Ability = true;
-        
+        m_Animator.SetTrigger("Attack");
         m_LastTimeAbility = Time.time;
         StartCoroutine(ShootBones());
         

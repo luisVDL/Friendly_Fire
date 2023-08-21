@@ -4961,6 +4961,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Collider: {fileID: 1653086129783525782}
+  m_FriendActivation: {fileID: 0}
   m_ID: Schlap
 --- !u!95 &4377752654364166961
 Animator:
