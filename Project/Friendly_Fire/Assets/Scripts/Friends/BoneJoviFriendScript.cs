@@ -18,7 +18,6 @@ public class BoneJoviFriendScript : OffensiveFriend, IRestartable
     
     public override bool ActivateFriendAbility()
     {
-        print("Activation");
         m_Ability = true;
         
         m_LastTimeAbility = Time.time;

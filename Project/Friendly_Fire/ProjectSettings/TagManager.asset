@@ -7,6 +7,7 @@ TagManager:
   - Friend
   - Friend Ability
   - Enemy
+  - Friend Status Ability
   layers:
   - Default
   - TransparentFX
