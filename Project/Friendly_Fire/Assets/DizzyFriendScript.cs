@@ -6,20 +6,34 @@ using UnityEngine;
 public class DizzyFriendScript : AFriend
 {
     [SerializeField] private GameObject m_Ability;
-    // Start is called before the first frame update
+    
+    
+    
+    void OnEnable()
+    {
+        m_CooldownImage.gameObject.SetActive(true);
+    }
+
+    void OnDisable()
+    {
+        m_CooldownImage.gameObject.SetActive(false);
+    }
+    
     void Start()
     {
         m_CurrentCooldown = m_InitialCooldown;
-        m_LastTimeAbility = Time.time;
+        m_LastActivationTime = Time.time;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (m_CurrentCooldown + m_LastTimeAbility < Time.time)
+        m_CooldownImage.fillAmount = (Time.time -m_LastActivationTime) / m_CurrentCooldown;
+        if (m_CurrentCooldown + m_LastActivationTime < Time.time)
         {
-            m_LastTimeAbility = Time.time;
+            m_LastActivationTime = Time.time;
+            m_Animator.SetTrigger("Attack");
             ActivateFriendAbility();
         }
     }

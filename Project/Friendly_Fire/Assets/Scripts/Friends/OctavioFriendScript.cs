@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class OctavioFriendScript : OffensiveFriend, IRestartable
@@ -14,20 +15,32 @@ public class OctavioFriendScript : OffensiveFriend, IRestartable
     void Start()
     {
         m_CurrentDamage = m_InitialDamage;
-        m_LastActivation = Time.time + 5f;
+        m_LastActivationTime = Time.time;
+        m_CurrentCooldown = m_InitialCooldown;
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        if (Time.time > m_LastActivation + m_CurrentCooldown)
+        m_CooldownImage.fillAmount = (Time.time - m_LastActivationTime) / m_CurrentCooldown;
+        //print((Time.time - m_LastActivationTime) / m_CurrentCooldown);
+        if (Time.time > m_LastActivationTime + m_CurrentCooldown)
         {
             m_Animator.SetTrigger("Attack");
             ActivateFriendAbility();
-            m_CurrentCooldown = Time.time;
+            m_LastActivationTime = Time.time;
         }
     }
-    
+
+    void OnEnable()
+    {
+        m_CooldownImage.gameObject.SetActive(true);
+    }
+
+    void OnDisable()
+    {
+        m_CooldownImage.gameObject.SetActive(false);
+    }
 
     public override bool ActivateFriendAbility()
     {
@@ -38,6 +51,7 @@ public class OctavioFriendScript : OffensiveFriend, IRestartable
             l_GO = m_TentaclesPool.EnableObject();
             l_Tentacle = l_GO.GetComponent<OctavioTentacleBullet>();
             l_Tentacle.setParentFriend(this);
+            
             try
             {
                 l_Tentacle.FireBullet(Vector3.zero, NewEnemyManager.getEnemyPosition(),transform.rotation);
@@ -57,5 +71,6 @@ public class OctavioFriendScript : OffensiveFriend, IRestartable
     public void Restart()
     {
         //throw new System.NotImplementedException();
+        m_CooldownImage.gameObject.SetActive(false);
     }
 }

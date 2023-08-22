@@ -9,17 +9,28 @@ public class BoneJoviFriendScript : OffensiveFriend, IRestartable
     // Start is called before the first frame update
 
     [SerializeField] private int m_MaxShots = 5;
-    [SerializeField] private float m_CooldownAbility = 4f;
+
     [SerializeField] private float m_CooldownShot = 0.2f;
     [SerializeField] private PoolScript m_BonePool;
     private bool m_Ability;
     
     
+    
+    void OnEnable()
+    {
+        m_CooldownImage.gameObject.SetActive(true);
+    }
+
+    void OnDisable()
+    {
+        m_CooldownImage.gameObject.SetActive(false);
+    }
+    
     public override bool ActivateFriendAbility()
     {
         m_Ability = true;
         m_Animator.SetTrigger("Attack");
-        m_LastTimeAbility = Time.time;
+        m_LastActivationTime = Time.time;
         StartCoroutine(ShootBones());
         
         return true;
@@ -48,26 +59,29 @@ public class BoneJoviFriendScript : OffensiveFriend, IRestartable
             yield return new WaitForSeconds(m_CooldownShot);
         }
         m_Ability = false;
-        m_LastTimeAbility=Time.time;
+        //m_LastActivationTime=Time.time;
     }
     
 
     public void Restart()
     {
+        m_CooldownImage.gameObject.SetActive(false);
         //throw new System.NotImplementedException();
     }
 
     void Start()
     {
-        m_LastTimeAbility = Time.time;
+        m_LastActivationTime = Time.time;
         m_Ability = false;
         m_CurrentDamage = m_InitialDamage;
+        m_CurrentCooldown = m_InitialCooldown;
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        if (m_LastTimeAbility + m_CooldownAbility< Time.time  && !m_Ability)
+        m_CooldownImage.fillAmount = (Time.time - m_LastActivationTime) / m_CurrentCooldown;
+        if (m_LastActivationTime + m_CurrentCooldown< Time.time  && !m_Ability)
         {
             ActivateFriendAbility();
         }

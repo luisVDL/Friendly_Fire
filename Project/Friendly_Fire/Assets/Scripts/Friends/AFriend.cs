@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class AFriend : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public abstract class AFriend : MonoBehaviour
     { OFFENSIVE, DEFENSIVE, STATUS, SUPPORT }
 
 
+    [SerializeField] protected Image m_CooldownImage;
 
     [SerializeField] protected FriendType m_FriendType;
     [SerializeField] protected Animator m_Animator;
@@ -31,7 +33,7 @@ public abstract class AFriend : MonoBehaviour
     [SerializeField] protected float m_InitialCooldown;
     protected float m_CurrentCooldown;
     protected bool m_FriendIsActive;
-    protected float m_LastTimeAbility;
+    protected float m_LastActivationTime;
     
     //Not sure if I need it 
     //protected string m_ID;

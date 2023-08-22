@@ -6,7 +6,6 @@ public abstract class OffensiveFriend : AFriend
 {
     [SerializeField] protected float m_InitialDamage;
     protected float m_CurrentDamage;
-    protected float m_LastActivation;
 
 
     public void ResetFriendDamage()
