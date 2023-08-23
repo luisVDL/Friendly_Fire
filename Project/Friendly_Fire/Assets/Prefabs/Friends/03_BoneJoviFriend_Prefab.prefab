@@ -4997,11 +4997,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6d223a5409f48e4d9595a14e7839ae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_CooldownImage: {fileID: 0}
   m_FriendType: 0
   m_Animator: {fileID: 4551187648818740741}
   m_InitialCooldown: 3
   m_InitialDamage: 40
   m_MaxShots: 5
-  m_CooldownAbility: 4
   m_CooldownShot: 0.2
   m_BonePool: {fileID: 0}

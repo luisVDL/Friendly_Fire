@@ -4840,6 +4840,7 @@ GameObject:
   - component: {fileID: 5589169103047064582}
   - component: {fileID: 5589169103047064581}
   - component: {fileID: 1093437385}
+  - component: {fileID: 1653086130635546494}
   m_Layer: 0
   m_Name: 06_WindyFriend_Prefab
   m_TagString: Friend
@@ -4877,7 +4878,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Collider: {fileID: 5589169102736605396}
-  m_FriendActivation: {fileID: 0}
+  m_FriendActivation: {fileID: 1653086130635546494}
   m_ID: Windy
 --- !u!95 &1093437385
 Animator:
@@ -4900,6 +4901,26 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1653086130635546494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5589169103047064579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a47f375b5312cb5438c9aa3c8de562a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CooldownImage: {fileID: 0}
+  m_FriendType: 0
+  m_Animator: {fileID: 1093437385}
+  m_InitialCooldown: 4
+  m_InitialDamage: 0
+  m_Pool: {fileID: 0}
+  m_CooldownBetweenWaves: 0.5
+  m_CooldownBetweenDirections: 0.3
 --- !u!1 &5589169103908290718
 GameObject:
   m_ObjectHideFlags: 0
@@ -4973,7 +4994,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -1626581247, guid: a544d41da8559d34c93e5c288f82e4ab, type: 3}
+  m_Sprite: {fileID: -2052076638, guid: d9431816df557ab498f98170ce0eb0de, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -18,12 +18,7 @@ public class OctavioTentacleBullet : AbsBullet, IRestartable
         transform.position = l_Position;
         return m_TentaclePrefab;
     }
-
-    public override List<AbsBullet> NullifyOtherBullets()
-    {
-        return null;
-    }
-
+    
     public override void Trajectory()
     {
   
@@ -47,5 +42,6 @@ public class OctavioTentacleBullet : AbsBullet, IRestartable
 
     public override void DeactivateBullet()
     {
+        //It will deactivate itself with the animation
     }
 }
