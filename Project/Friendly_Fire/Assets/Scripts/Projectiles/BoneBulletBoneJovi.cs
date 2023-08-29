@@ -9,7 +9,7 @@ public class BoneBulletBoneJovi : AbsBullet, IRestartable
     [SerializeField] private float m_BulletSpeed;
     [SerializeField] private float m_TimeToLive = 5f;
 
-    private float m_LastTimeShooted=0.0f;
+    private float m_LastTimeShot=0.0f;
     private Vector3 m_Direction;
     private Rigidbody2D m_BulletRB;
 
@@ -22,7 +22,7 @@ public class BoneBulletBoneJovi : AbsBullet, IRestartable
     }
     void Update()
     {
-        if(Time.time>m_LastTimeShooted+m_TimeToLive) gameObject.SetActive(false);
+        if(Time.time>m_LastTimeShot+m_TimeToLive) gameObject.SetActive(false);
     }
 
     public override GameObject FireBullet(Vector3 l_Direction, Vector3 l_Position, Quaternion l_rotation)
@@ -43,7 +43,7 @@ public class BoneBulletBoneJovi : AbsBullet, IRestartable
     {
         
         m_BulletRB.velocity=m_Direction * m_BulletSpeed;
-        m_LastTimeShooted = Time.time;
+        m_LastTimeShot = Time.time;
     }
     
     public override float GetDamage()

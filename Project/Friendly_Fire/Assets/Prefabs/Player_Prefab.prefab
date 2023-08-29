@@ -369,6 +369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd24a7834dafdbb4bbf05795927d3b07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_AbilityObstacleActivated: 0
   m_PlayerHealth: {fileID: 3288810749344441668}
   m_MovementSpeed: 300
   m_Camera: {fileID: 0}

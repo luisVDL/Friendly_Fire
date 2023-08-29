@@ -47,8 +47,7 @@ public class PlayerController : MonoBehaviour
         m_PlayerInput_KEYBOARD.Disable();
     }
 
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         m_Animator = GetComponent<Animator>();
@@ -56,10 +55,7 @@ public class PlayerController : MonoBehaviour
         m_StartPosition = transform.position;
         TryGetComponent(out m_PlayerRB);
     }
-
     
-
-    // Update is called once per frame
     void FixedUpdate()
     {
         m_MoveInput.x = m_PlayerInput_KEYBOARD.GameMovement.HorizontalMovement.ReadValue<float>();
@@ -68,9 +64,6 @@ public class PlayerController : MonoBehaviour
 
 
         AnimateMovement();
-        /*
-         * if(m_RB.velocity.x<0f){ // Change Sprite to LEFT}else{ // Change Sprite to RIGHT}
-         */
     }
 
     private void AnimateMovement()
