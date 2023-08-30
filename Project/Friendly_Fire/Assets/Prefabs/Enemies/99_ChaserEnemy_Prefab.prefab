@@ -591,8 +591,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fff46ce3b3c4b93409ec738afd680a7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SpeedMultiplier: 1
   m_DizzyAnimation: {fileID: 1704110500}
-  m_ChaseSpeed: 3
+  m_ChaseSpeed: 5
   m_DealtDamage: 10
   m_RecoilFrames: 10
   m_RecoilSpeed: 4

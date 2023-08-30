@@ -5,13 +5,19 @@ using UnityEngine;
 public class DizzySubStatus : ASubStatus
 {
     
-    public void DizzySubStatusSetter(float l_Duration, AEnemy l_EnemyParent)
+    public void DizzySubStatusSetter(float l_Duration, AEnemy l_EnemyParent, string l_name)
     {
+        m_SourceName = l_name;
         m_StatusDuration = l_Duration;
         m_EnemyParent = l_EnemyParent;
         ActivateSubStatus();
     }
-    
+
+    public override void ResetStatus()
+    {
+        m_EnemyParent.setDizzyVariables(1);
+    }
+
     void Update()
     {
         if(m_StatusStart+m_StatusDuration<Time.time)
@@ -26,7 +32,7 @@ public class DizzySubStatus : ASubStatus
 
     public override void DeactivateSubStatus()
     {
-        m_EnemyParent.setDizzyVariables(1);
+        ResetStatus();
         m_EnemyParent.RemoveSubStatus(this);
         
     }

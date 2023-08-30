@@ -12,14 +12,23 @@ public abstract class ASubStatus : MonoBehaviour, IComparable
     // We want to know when the state is gonna disappear -> DONE
     
 
-    protected string m_SourceName;
+    [SerializeField]protected string m_SourceName;
     
     protected float m_StatusStart;
     protected float m_StatusDuration;
     protected AEnemy m_EnemyParent;
 
+    public string getSourceName()
+    {
+        return m_SourceName;
+    }
+
+    //The 
+    //public abstract void ReapplyStatus(float l_AuxVariable);
     public abstract void ActivateSubStatus();
     public abstract void DeactivateSubStatus();
+
+    public abstract void ResetStatus();
     public int CompareTo(object obj)
     {
         if (obj is ASubStatus)

@@ -9,7 +9,8 @@ public class DizzySubStatusSetter : ASubStatusSetter
     {
 
         DizzySubStatus l_Status=l_Enemy.gameObject.AddComponent<DizzySubStatus>();
-        l_Status.DizzySubStatusSetter(m_Duration, l_Enemy);
+        l_Status.enabled = false;
+        l_Status.DizzySubStatusSetter(m_Duration, l_Enemy, m_SubStateName);
         l_Enemy.AddSubstate(l_Status);
         gameObject.SetActive(false);
     }

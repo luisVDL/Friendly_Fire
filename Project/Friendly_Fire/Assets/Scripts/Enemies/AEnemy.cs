@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Object = System.Object;
 
@@ -15,7 +16,7 @@ public abstract class AEnemy : MonoBehaviour, IComparable
     protected float m_SubstateDuration;
     protected float m_SubstateStart;
     protected m_EnemyIAState m_CurrentState;
-    protected float m_SpeedMultiplier = 1;
+    [SerializeField]protected float m_SpeedMultiplier = 1;
     protected enum m_EnemyIAState{
         CHASE, ATTACKING, COOLDOWN, PREPARING, DEATH
     }
@@ -59,15 +60,6 @@ public abstract class AEnemy : MonoBehaviour, IComparable
         return -200;
     }
     
-    //protected Add 
-
-    /*public void setEnemySubState(m_EnemySubstate l_SS, float l_Duration)
-    {
-        m_CurrentSubState = l_SS;
-        m_SubstateDuration = l_Duration;
-        m_SubstateDuration = Time.time;
-    }
-    */
 
     public void setDizzyVariables(float l_X)
     {
@@ -81,30 +73,50 @@ public abstract class AEnemy : MonoBehaviour, IComparable
     {
         m_SpeedMultiplier = l_multiplier;
     }
-    public void AddSubstate(ASubStatus l_SubStatus)
-    {
-        if (m_SubStatuses.Contains(l_SubStatus))
+    public bool AddSubstate(ASubStatus l_SubStatus)
+    {print("------------Adding \n");
+        if (m_SubStatuses.Count != 0)
+        {
+            foreach (var l_SS in m_SubStatuses)
+            {
+                if (l_SS.getSourceName().Equals(l_SubStatus.getSourceName()))
+                {
+                    RemoveSubStatus(l_SS);
+                    break;
+                }
+            
+            }
+        }
+        
+        /*
+        if (m_SubStatuses.Any( x => x.getSourceName().Equals(l_SubStatus.getSourceName())=>RemoveSubStatus(x)));
         {
             RemoveSubStatus(l_SubStatus);
-            m_SubStatuses.Add(l_SubStatus);
-        }
+        }*/
+        l_SubStatus.enabled = true;
+        l_SubStatus.ActivateSubStatus();
+        m_SubStatuses.Add(l_SubStatus);
+        return true;
+
     }
 
-    public void RemoveSubStatus(ASubStatus lSubStatus)
+    public void RemoveSubStatus(ASubStatus l_SubStatus)
     {
-        m_SubStatuses.Remove(lSubStatus);
-        Destroy(lSubStatus);
+        print("------------Removing \n");
+        l_SubStatus.ResetStatus();
+        m_SubStatuses.Remove(l_SubStatus);
+        Destroy(l_SubStatus);
     }
 
     protected void RemoveAllSubStatuses()
     {
-        if (m_SubStatuses.Count != 0)
+        ASubStatus l_Substatus;
+        while (m_SubStatuses.Count != 0)
         {
-            foreach (var l_Substate in m_SubStatuses)
-            {
-                l_Substate.DeactivateSubStatus();
-            } 
+            l_Substatus = m_SubStatuses[0];
+            l_Substatus.ResetStatus();
+            m_SubStatuses.Remove(l_Substatus);
+            Destroy(l_Substatus);
         }
-        
     }
 }

@@ -29,7 +29,7 @@ public class NewEnemyManager : MonoBehaviour
     [Space] 
     
     [Header("Wave Points System")] 
-    [Range(5, 25)] [SerializeField] private float m_maxPointsPerWave = 10;
+    [Range(1, 25)] [SerializeField] private float m_maxPointsPerWave = 10;
     [Range(5, 25)] [SerializeField] private float m_AddedPointsPerWave = 5;
     
 

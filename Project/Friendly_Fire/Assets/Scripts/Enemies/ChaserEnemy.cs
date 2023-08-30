@@ -33,6 +33,7 @@ public class ChaserEnemy : AEnemy, IRestartable
                 l_bullet.DeactivateBullet();
             }else if (other.tag == "Player")
             {
+                m_EnemyRB.velocity = new Vector2(0f, 0f);
                 other.GetComponent<PlayerController>().PlayerTakesDamage(m_DealtDamage,(other.transform.position-transform.position).normalized, false);
                 StartCoroutine(Recoil((transform.position-other.transform.position).normalized));
             }else if (other.tag == "Friend Status Ability")
@@ -74,7 +75,8 @@ public class ChaserEnemy : AEnemy, IRestartable
          * - Maybe I need a list to store this substates and the start and the end of each state
          */
         Vector2 l_direction = new Vector2(m_PlayerToChase.position.x - m_EnemyRB.position.x , m_PlayerToChase.position.y - m_EnemyRB.position.y )*m_Dizzy;
-        m_EnemyRB.position += l_direction.normalized * m_ChaseSpeed * Time.deltaTime * m_SpeedMultiplier;
+        
+        m_EnemyRB.position += l_direction.normalized * m_ChaseSpeed * m_SpeedMultiplier * Time.deltaTime;
         
     }
 

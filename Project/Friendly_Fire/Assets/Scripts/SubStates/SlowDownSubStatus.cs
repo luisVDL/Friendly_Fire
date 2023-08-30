@@ -14,20 +14,31 @@ public class SlowDownSubStatus : ASubStatus
 
     public override void ActivateSubStatus()
     {
+        print("ASQWRRFGASF \n");
         m_EnemyParent.SetSpeedMultiplier(m_SpeedMultiplier);
         
     }
 
-    public  void SlowDownStatusSetter(float l_Duration, AEnemy l_EnemyParent, float l_Multiplier)
+    public  void SlowDownStatusSetter(float l_Duration, AEnemy l_EnemyParent, float l_Multiplier, string l_name)
     {
+        m_SourceName = l_name;
+        m_StatusStart = Time.time;
         m_StatusDuration = l_Duration;
         m_EnemyParent = l_EnemyParent;
         m_SpeedMultiplier = l_Multiplier;
-        ActivateSubStatus();
+        //ActivateSubStatus();
     }
 
     public override void DeactivateSubStatus()
     {
+        print("Deactivated \n");
+        m_EnemyParent.SetSpeedMultiplier(1f);
+        m_EnemyParent.RemoveSubStatus(this);
+    }
+
+    public override void ResetStatus()
+    {
+        print("REset");
         m_EnemyParent.SetSpeedMultiplier(1f);
     }
 }
