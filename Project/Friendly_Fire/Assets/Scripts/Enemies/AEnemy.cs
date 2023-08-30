@@ -15,6 +15,7 @@ public abstract class AEnemy : MonoBehaviour, IComparable
     protected float m_SubstateDuration;
     protected float m_SubstateStart;
     protected m_EnemyIAState m_CurrentState;
+    protected float m_SpeedMultiplier = 1;
     protected enum m_EnemyIAState{
         CHASE, ATTACKING, COOLDOWN, PREPARING, DEATH
     }
@@ -76,6 +77,10 @@ public abstract class AEnemy : MonoBehaviour, IComparable
         m_Dizzy = l_X;
     }
 
+    public void SetSpeedMultiplier(float l_multiplier)
+    {
+        m_SpeedMultiplier = l_multiplier;
+    }
     public void AddSubstate(ASubStatus l_SubStatus)
     {
         if (m_SubStatuses.Contains(l_SubStatus))

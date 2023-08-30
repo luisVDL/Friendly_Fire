@@ -20,7 +20,6 @@ public abstract class ASubStatus : MonoBehaviour, IComparable
 
     public abstract void ActivateSubStatus();
     public abstract void DeactivateSubStatus();
-    
     public int CompareTo(object obj)
     {
         if (obj is ASubStatus)

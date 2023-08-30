@@ -38,7 +38,7 @@ public class ChaserEnemy : AEnemy, IRestartable
             }else if (other.tag == "Friend Status Ability")
             {
                 m_EnemyRB.velocity = new Vector2(0f, 0f);
-                DizzySubStatusSetter l_Setter = other.GetComponent<DizzySubStatusSetter>();
+                ASubStatusSetter l_Setter = other.GetComponent<ASubStatusSetter>();
                 l_Setter.setSubStatus(this);
                 //
                 //Take the status from a method and add it to the list
@@ -74,7 +74,7 @@ public class ChaserEnemy : AEnemy, IRestartable
          * - Maybe I need a list to store this substates and the start and the end of each state
          */
         Vector2 l_direction = new Vector2(m_PlayerToChase.position.x - m_EnemyRB.position.x , m_PlayerToChase.position.y - m_EnemyRB.position.y )*m_Dizzy;
-        m_EnemyRB.position += l_direction.normalized * m_ChaseSpeed * Time.deltaTime;
+        m_EnemyRB.position += l_direction.normalized * m_ChaseSpeed * Time.deltaTime * m_SpeedMultiplier;
         
     }
 

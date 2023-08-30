@@ -5,7 +5,7 @@ using UnityEngine;
 public class DizzySubStatus : ASubStatus
 {
     
-    public void DizzyStatusSetter(float l_Duration, AEnemy l_EnemyParent)
+    public void DizzySubStatusSetter(float l_Duration, AEnemy l_EnemyParent)
     {
         m_StatusDuration = l_Duration;
         m_EnemyParent = l_EnemyParent;
