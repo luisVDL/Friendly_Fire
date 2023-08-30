@@ -7,7 +7,6 @@ using Object = System.Object;
 
 public abstract class AEnemy : MonoBehaviour, IComparable
 {
-    //[SerializeField] private HealthSystem m_Health;
 
     protected Transform m_PlayerToChase;
     protected EnemyHealth m_EnemyHealth;
@@ -73,8 +72,8 @@ public abstract class AEnemy : MonoBehaviour, IComparable
     {
         m_SpeedMultiplier = l_multiplier;
     }
-    public bool AddSubstate(ASubStatus l_SubStatus)
-    {print("------------Adding \n");
+    public void AddSubstate(ASubStatus l_SubStatus)
+    {
         if (m_SubStatuses.Count != 0)
         {
             foreach (var l_SS in m_SubStatuses)
@@ -88,21 +87,14 @@ public abstract class AEnemy : MonoBehaviour, IComparable
             }
         }
         
-        /*
-        if (m_SubStatuses.Any( x => x.getSourceName().Equals(l_SubStatus.getSourceName())=>RemoveSubStatus(x)));
-        {
-            RemoveSubStatus(l_SubStatus);
-        }*/
         l_SubStatus.enabled = true;
         l_SubStatus.ActivateSubStatus();
         m_SubStatuses.Add(l_SubStatus);
-        return true;
 
     }
 
     public void RemoveSubStatus(ASubStatus l_SubStatus)
     {
-        print("------------Removing \n");
         l_SubStatus.ResetStatus();
         m_SubStatuses.Remove(l_SubStatus);
         Destroy(l_SubStatus);
