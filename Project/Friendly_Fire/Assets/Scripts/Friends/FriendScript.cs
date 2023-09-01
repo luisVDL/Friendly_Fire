@@ -8,18 +8,8 @@ public class FriendScript : MonoBehaviour, IComparable
     [SerializeField]private GameObject m_Collider;
     [SerializeField] private AFriend m_FriendActivation;
     [SerializeField]private string m_ID;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField] private string m_Creator;
+ 
 
     public void SetFriendPosition(Transform l_Destination)
     {
@@ -39,5 +29,9 @@ public class FriendScript : MonoBehaviour, IComparable
         else return -200;
     }
 
+    public string getFriendCreator()
+    {
+        return m_Creator;
+    }
     //public abstract UseFriendAbility();
 }

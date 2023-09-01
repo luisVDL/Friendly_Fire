@@ -21,10 +21,13 @@ public abstract class AEnemy : MonoBehaviour, IComparable
     }
     
 
-    //STATES VARIABLES
+    //STATUSES VARIABLES
+    [Header("Subs Statuses")]
     protected List<ASubStatus> m_SubStatuses;
     protected float m_Dizzy;
-    [SerializeField] protected GameObject m_DizzyAnimation; 
+    
+    [SerializeField] protected GameObject m_DizzyAnimation;
+    [SerializeField] protected GameObject m_SlowDownAnimation;
         
         
     public abstract void Chase();
@@ -70,6 +73,9 @@ public abstract class AEnemy : MonoBehaviour, IComparable
 
     public void SetSpeedMultiplier(float l_multiplier)
     {
+        if(l_multiplier<1) m_SlowDownAnimation.SetActive(true);
+        else m_SlowDownAnimation.SetActive(false);
+        
         m_SpeedMultiplier = l_multiplier;
     }
     public void AddSubstate(ASubStatus l_SubStatus)

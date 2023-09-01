@@ -8,7 +8,6 @@ public class SchlapFriendScript : AFriend
 {
     [SerializeField] private PoolScript m_BulletPool;
     [SerializeField] private PoolScript m_AreaPool;
-    public bool AAAAA;
     [SerializeField] private float m_StateDuration;
     //We need another for the area slime
     void OnEnable()
@@ -30,16 +29,12 @@ public class SchlapFriendScript : AFriend
 
     void Update()
     {
-        if (!AAAAA)
+        m_CooldownImage.fillAmount = (Time.time -m_LastActivationTime) / m_CurrentCooldown;
+        if (m_CurrentCooldown + m_LastActivationTime < Time.time)
         {
-            m_CooldownImage.fillAmount = (Time.time -m_LastActivationTime) / m_CurrentCooldown;
-            if (m_CurrentCooldown + m_LastActivationTime < Time.time)
-            {
-                m_Animator.SetTrigger("Attack");
-                ActivateFriendAbility();
-            }  
+            m_Animator.SetTrigger("Attack");
+            ActivateFriendAbility();
         }
-        
     }
 
     public float getAbilityTime()

@@ -9,7 +9,7 @@ public class ChaserEnemy : AEnemy, IRestartable
     [SerializeField] private int m_RecoilFrames=10;
     [SerializeField] private float m_RecoilSpeed=4f;
     private bool m_Active = false;
-    //private Animator m_Animator;
+    private Animator m_Animator;
     private Rigidbody2D m_EnemyRB;
     [SerializeField]private float m_SpawnCooldown;
     
@@ -33,6 +33,8 @@ public class ChaserEnemy : AEnemy, IRestartable
                 l_bullet.DeactivateBullet();
             }else if (other.tag == "Player")
             {
+                m_Animator.SetTrigger("Attack");
+                print("AAAAAAAtackin");
                 m_EnemyRB.velocity = new Vector2(0f, 0f);
                 other.GetComponent<PlayerController>().PlayerTakesDamage(m_DealtDamage,(other.transform.position-transform.position).normalized, false);
                 StartCoroutine(Recoil((transform.position-other.transform.position).normalized));
@@ -41,7 +43,6 @@ public class ChaserEnemy : AEnemy, IRestartable
                 m_EnemyRB.velocity = new Vector2(0f, 0f);
                 ASubStatusSetter l_Setter = other.GetComponent<ASubStatusSetter>();
                 l_Setter.setSubStatus(this);
-                //
                 //Take the status from a method and add it to the list
             }
 
@@ -103,7 +104,7 @@ public class ChaserEnemy : AEnemy, IRestartable
         m_EnemyHealth.StartEnemyHealth();
         m_Active = true;
         m_Recoiling = false;
-        //m_Animator = GetComponent<Animator>();
+        m_Animator = GetComponent<Animator>();
         m_Sprite.SetActive(m_Active);
         gameObject.SetActive(m_Active);
         m_CurrentState = m_EnemyIAState.CHASE;
