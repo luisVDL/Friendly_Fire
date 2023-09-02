@@ -34,7 +34,6 @@ public class ChaserEnemy : AEnemy, IRestartable
             }else if (other.tag == "Player")
             {
                 m_Animator.SetTrigger("Attack");
-                print("AAAAAAAtackin");
                 m_EnemyRB.velocity = new Vector2(0f, 0f);
                 other.GetComponent<PlayerController>().PlayerTakesDamage(m_DealtDamage,(other.transform.position-transform.position).normalized, false);
                 StartCoroutine(Recoil((transform.position-other.transform.position).normalized));

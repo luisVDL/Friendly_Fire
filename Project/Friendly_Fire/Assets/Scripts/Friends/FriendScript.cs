@@ -6,9 +6,11 @@ using UnityEngine;
 public class FriendScript : MonoBehaviour, IComparable
 {
     [SerializeField]private GameObject m_Collider;
+    [SerializeField] private GameObject m_Pedestal;
     [SerializeField] private AFriend m_FriendActivation;
     [SerializeField]private string m_ID;
     [SerializeField] private string m_Creator;
+    
  
 
     public void SetFriendPosition(Transform l_Destination)
@@ -17,6 +19,7 @@ public class FriendScript : MonoBehaviour, IComparable
         transform.localPosition = Vector3.zero;
         m_FriendActivation.enabled = true;
         m_Collider.SetActive(false);
+        m_Pedestal.SetActive(false);
     }
 
     public int CompareTo(object l_other)
