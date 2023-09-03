@@ -373,7 +373,7 @@ MonoBehaviour:
   m_PlayerHealth: {fileID: 3288810749344441668}
   m_MovementSpeed: 300
   m_Camera: {fileID: 0}
-  m_RecoilSpeed: 4
+  m_RecoilSpeed: 6
   m_RecoilingFrames: 10
 --- !u!114 &3288810750383686617
 MonoBehaviour:

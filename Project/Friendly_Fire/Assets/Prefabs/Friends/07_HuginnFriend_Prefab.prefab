@@ -156,7 +156,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 6
   m_Sprite: {fileID: 953959955, guid: 1ccf6b5436a89514c979d13af68e65e3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -221,7 +221,7 @@ MonoBehaviour:
   m_Pedestal: {fileID: 1489294070}
   m_FriendActivation: {fileID: 0}
   m_ID: Huginn
-  m_Creator: 
+  m_Creator: Kuervo
 --- !u!95 &4552654077318123119
 Animator:
   serializedVersion: 5
@@ -386,7 +386,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0

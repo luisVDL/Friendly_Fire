@@ -684,11 +684,11 @@ MonoBehaviour:
   m_SpeedMultiplier: 1
   m_DizzyAnimation: {fileID: 1704110500}
   m_SlowDownAnimation: {fileID: 1804502409}
-  m_ChaseSpeed: 4.5
+  m_ChaseSpeed: 3.5
   m_DealtDamage: 10
   m_RecoilFrames: 10
-  m_RecoilSpeed: 4
-  m_SpawnCooldown: 0
+  m_RecoilSpeed: 3.5
+  m_SpawnCooldown: 0.3
   m_Sprite: {fileID: 7445245733557818800}
 --- !u!114 &7445245734288203666
 MonoBehaviour:
