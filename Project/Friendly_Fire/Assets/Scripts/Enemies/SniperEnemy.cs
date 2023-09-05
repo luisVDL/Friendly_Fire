@@ -16,7 +16,6 @@ public class SniperEnemy : AEnemy, IRestartable
 
     public override void ChangeToCooldownState()
     {
-        print("Cooling down");
         m_CurrentState = m_EnemyIAState.COOLDOWN;
     }
     /*
@@ -169,14 +168,10 @@ public class SniperEnemy : AEnemy, IRestartable
 
     public void ShootBullet()
     {
-        print("Getting the GO");
         GameObject l_GM = m_SniperBulletPool.EnableObject();
-        print("Getting the Position");
         Vector3 l_RBPosition = new Vector3(m_BulletOrigin.transform.position.x, m_BulletOrigin.transform.position.y, 0f);
-        print("Getting the Rotation");
         Quaternion l_Rotation = GetBulletRotation((m_PlayerToChase.position-l_RBPosition).normalized);
         l_GM.GetComponent<AbsBullet>().FireBullet((m_PlayerToChase.position-l_RBPosition), l_RBPosition-(l_RBPosition-m_PlayerToChase.position).normalized,l_Rotation);
-        print("--------Shooting------");
     }
 
     private void ChangeFromAttacking()

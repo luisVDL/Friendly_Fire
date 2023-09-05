@@ -35,7 +35,6 @@ public abstract class AEnemy : MonoBehaviour, IComparable
 
     public void ChangeFromCooldown()
     {
-        print("AAAAAAA");
         m_CurrentState = m_EnemyIAState.CHASE;
     }
     public abstract void Chase();

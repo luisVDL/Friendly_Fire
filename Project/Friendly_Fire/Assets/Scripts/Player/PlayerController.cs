@@ -87,19 +87,19 @@ public class PlayerController : MonoBehaviour
         }
         else //Horizontal movement
         {
-            if (m_MoveInput.y < 0)
+            if (m_MoveInput.y > 0)
+            {
+                m_Animator.SetBool("UP", true);
+                m_Animator.SetBool("LEFT", false);
+                m_Animator.SetBool("RIGHT", false);
+                m_Animator.SetBool("DOWN", false);
+            }
+            else
             {
                 m_Animator.SetBool("UP", false);
                 m_Animator.SetBool("LEFT", false);
                 m_Animator.SetBool("RIGHT", false);
                 m_Animator.SetBool("DOWN", true);
-            }
-            else
-            {
-                m_Animator.SetBool("UP", true);
-                m_Animator.SetBool("LEFT", false);
-                m_Animator.SetBool("RIGHT", false);
-                m_Animator.SetBool("DOWN", true);//when i have the up animation this will change
             }
         }
     }
