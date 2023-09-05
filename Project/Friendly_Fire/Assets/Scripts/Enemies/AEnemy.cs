@@ -29,8 +29,15 @@ public abstract class AEnemy : MonoBehaviour, IComparable
     
     [SerializeField] protected GameObject m_DizzyAnimation;
     [SerializeField] protected GameObject m_SlowDownAnimation;
-        
-        
+
+
+    public abstract void ChangeToCooldownState();
+
+    public void ChangeFromCooldown()
+    {
+        print("AAAAAAA");
+        m_CurrentState = m_EnemyIAState.CHASE;
+    }
     public abstract void Chase();
     public abstract void Die();
     public abstract void Spawn(Vector3 l_Position, Transform l_Player);

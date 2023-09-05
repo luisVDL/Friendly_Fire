@@ -11,9 +11,8 @@ public class ChaserEnemy : AEnemy, IRestartable
     private bool m_Active = false;
     private Animator m_Animator;
     private Rigidbody2D m_EnemyRB;
-    
-    
-    
+
+
     [Header("Hide sprites in spawn")]
     [SerializeField] private GameObject m_Sprite;
     /*[SerializeField] private GameObject m_SpawnSprite;
@@ -46,7 +45,14 @@ public class ChaserEnemy : AEnemy, IRestartable
             }
 
     }
-        
+
+    public override void ChangeToCooldownState()
+    {
+        m_EnemyRB.velocity *= 0.3f;
+        m_CurrentState = m_EnemyIAState.COOLDOWN;
+        m_Animator.SetTrigger("Cooldown");
+    }
+
     void Start()
     {
         m_SubStatuses = new List<ASubStatus>();
@@ -58,24 +64,21 @@ public class ChaserEnemy : AEnemy, IRestartable
     {
         if (!m_Recoiling && m_Active)
         {
-            Chase();
+            switch (m_CurrentState)
+            {
+                case m_EnemyIAState.CHASE:
+                    Chase();
+                    break;
+                case m_EnemyIAState.COOLDOWN:
+                    break;
+            }
+                
         }
     }
     
     public override void Chase()
     {
-        
-        
-        //THIS WON'T STACK SUBSTATES AND I DON'T WANT IT
-        /*
-         * - I need to stack substates
-         * - I need to change the current speed for SLOW state (and possible FAST state)
-         * - I need to nullify every action during the FROZEN state
-         * - I need to change the direction in the DIZZY state
-         * - Maybe I need a list to store this substates and the start and the end of each state
-         */
         Vector2 l_direction = new Vector2(m_PlayerToChase.position.x - m_EnemyRB.position.x , m_PlayerToChase.position.y - m_EnemyRB.position.y )*m_Dizzy;
-        
         m_EnemyRB.position += l_direction.normalized * m_ChaseSpeed * m_SpeedMultiplier * Time.deltaTime;
         
     }

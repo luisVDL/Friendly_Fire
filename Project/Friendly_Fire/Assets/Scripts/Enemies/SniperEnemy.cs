@@ -4,13 +4,21 @@ using UnityEngine;
 
 public class SniperEnemy : AEnemy, IRestartable
 {
-    [Header("CHASE")] [SerializeField] private float m_ChaseSpeed = 2.5f;
+    [Header("CHASE")] 
+    [SerializeField] private float m_ChaseSpeed = 2.5f;
     private Vector3 m_CurrentPosition = new Vector3(0f, 0f, 0f);
 
-    [Header("ATTACK")] [SerializeField] private float m_DistanceToAttack = 3f;
+    [Header("ATTACK")] 
+    [SerializeField] private float m_DistanceToAttack = 3f;
     [SerializeField] private float m_DealtDamage = 10f;
     private PoolScript m_SniperBulletPool;
-    
+    [SerializeField] private GameObject m_BulletOrigin;
+
+    public override void ChangeToCooldownState()
+    {
+        print("Cooling down");
+        m_CurrentState = m_EnemyIAState.COOLDOWN;
+    }
     /*
     [SerializeField] private AudioClip m_FourWayShootSound;
     [SerializeField] private AudioSource m_FourwayAudioSource;
@@ -149,17 +157,32 @@ public class SniperEnemy : AEnemy, IRestartable
     //ATTACKING
     private void Attack()
     {
+        m_Animator.SetTrigger("Attack");
+        /*
         GameObject l_GM = m_SniperBulletPool.EnableObject();
-        Vector3 l_RBPosition = new Vector3(m_EnemyRB.position.x, m_EnemyRB.position.y, 0f);
+        Vector3 l_RBPosition = new Vector3(m_BulletOrigin.transform.position.x, m_BulletOrigin.transform.position.y, 0f);
         Quaternion l_Rotation = GetBulletRotation((m_PlayerToChase.position-l_RBPosition).normalized);
         l_GM.GetComponent<AbsBullet>().FireBullet((m_PlayerToChase.position-l_RBPosition), l_RBPosition-(l_RBPosition-m_PlayerToChase.position).normalized,l_Rotation);
+        */
         //m_FourwayAudioSource.PlayOneShot(m_FourWayShootSound);
+    }
+
+    public void ShootBullet()
+    {
+        print("Getting the GO");
+        GameObject l_GM = m_SniperBulletPool.EnableObject();
+        print("Getting the Position");
+        Vector3 l_RBPosition = new Vector3(m_BulletOrigin.transform.position.x, m_BulletOrigin.transform.position.y, 0f);
+        print("Getting the Rotation");
+        Quaternion l_Rotation = GetBulletRotation((m_PlayerToChase.position-l_RBPosition).normalized);
+        l_GM.GetComponent<AbsBullet>().FireBullet((m_PlayerToChase.position-l_RBPosition), l_RBPosition-(l_RBPosition-m_PlayerToChase.position).normalized,l_Rotation);
+        print("--------Shooting------");
     }
 
     private void ChangeFromAttacking()
     {
         //m_CurrentState = m_EnemyIAState.PREPARING;
-        m_CurrentState = m_EnemyIAState.CHASE;
+        m_CurrentState = m_EnemyIAState.COOLDOWN;
         //m_PreparationStartTime = Time.time;
         //m_PreparationLaserStart = 0;
     }
