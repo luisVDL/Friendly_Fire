@@ -16,6 +16,7 @@ public abstract class AEnemy : MonoBehaviour, IComparable
     protected float m_SubstateStart;
     protected m_EnemyIAState m_CurrentState;
     [SerializeField]protected float m_SpeedMultiplier = 1;
+    [SerializeField]protected float m_SpawnCooldown;
     protected enum m_EnemyIAState{
         CHASE, ATTACKING, COOLDOWN, PREPARING, DEATH
     }
@@ -37,6 +38,11 @@ public abstract class AEnemy : MonoBehaviour, IComparable
     public abstract IEnumerator Recoil(Vector2 l_Direction);
     public abstract float GetDealtDamage();
     public abstract float getSpawnCooldown();
+
+    public void SetSpawnCooldown(float l_NewCooldown)
+    {
+        m_SpawnCooldown = l_NewCooldown;
+    }
     public void DeactivateGameObject()
     {
         gameObject.SetActive(false);

@@ -57,7 +57,6 @@ public class EnemyHealth : HealthSystem
         }
         catch (Exception e)
         {
-            
         }
         
     }

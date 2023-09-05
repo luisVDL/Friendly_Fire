@@ -11,7 +11,7 @@ public class ChaserEnemy : AEnemy, IRestartable
     private bool m_Active = false;
     private Animator m_Animator;
     private Rigidbody2D m_EnemyRB;
-    [SerializeField]private float m_SpawnCooldown;
+    
     
     
     [Header("Hide sprites in spawn")]

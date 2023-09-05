@@ -76,14 +76,22 @@ public class NewEnemyManager : MonoBehaviour
     void Update()
     {
         if(m_SpawnTime<Time.time)
-        if (m_EnemiesAlive.Count == 0 && !m_Spawning)
-        {
-            m_WaveNumber += 1;
-            m_Spawning = true;
-            ShowWaveNumber();
-            CreateWave();
-        }
+            if (m_EnemiesAlive.Count == 0 && !m_Spawning)
+            {
+                //Apply to the enemylists the increase for each wave
+                m_WaveNumber += 1;
+                m_Spawning = true;
+                ShowWaveNumber();
+                CreateWave();
+            }
+    }
 
+    private void IncreaseMaxNumberEnemiesPerWave()
+    {
+        foreach (EnemyClassManager l_Spawner in m_EnemyClasses)
+        {
+            l_Spawner.IncreaseMaxNEnemies();
+        }
     }
 
     private void CreateWave()
@@ -99,10 +107,13 @@ public class NewEnemyManager : MonoBehaviour
         {
             l_Random = Random.Range(0, m_MaxRandomValuePerWave);
             l_EnemyClass = m_EnemyClasses[l_Random];
-
-            l_currentCost += l_EnemyClass.getEnemyCost();
-            //l_EnemiesToSpawn.Add(l_EnemyClass.getEnemy());
-            m_EnemiesAlive.Add(l_EnemyClass.getEnemy());
+            if (l_EnemyClass.CanSpawn())
+            {
+                l_currentCost += l_EnemyClass.GetEnemyCost();
+                //l_EnemiesToSpawn.Add(l_EnemyClass.getEnemy());
+                m_EnemiesAlive.Add(l_EnemyClass.getEnemy());
+            }
+            
         }
         
         

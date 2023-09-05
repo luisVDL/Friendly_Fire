@@ -45,7 +45,7 @@ public class BoneJoviFriendScript : OffensiveFriend, IRestartable
         {
             l_GO = m_BonePool.EnableObject();
             l_Bone = l_GO.GetComponent<BoneBulletBoneJovi>();
-            l_Bone.setParentFriend(this);
+            l_Bone.SetParentFriend(this);
             try
             {
                 l_Bone.FireBullet(NewEnemyManager.getEnemyPosition() - transform.position, transform.position,

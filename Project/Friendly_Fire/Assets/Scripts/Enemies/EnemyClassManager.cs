@@ -7,7 +7,8 @@ public class EnemyClassManager : MonoBehaviour
 {
 
     [SerializeField] private string m_ID;
-    [SerializeField] private PoolScript m_Pool;
+    [SerializeField] private PoolScript m_EnemyPool;
+    [SerializeField] private PoolScript m_BulletPool;
     [SerializeField][Range(1,4)] private float m_EnemyCost;
     [SerializeField] private float m_EnemySpawnCooldown;
     [SerializeField]private int m_StartMaxNumberOfEnemiesOfType = 10;
@@ -24,18 +25,20 @@ public class EnemyClassManager : MonoBehaviour
     
     public AEnemy getEnemy()
     {
-        GameObject l_GO = m_Pool.EnableObject();
+        GameObject l_GO = m_EnemyPool.EnableObject();
         AEnemy  l_Enemy= l_GO.GetComponent<AEnemy>();
+        l_Enemy.SetSpawnCooldown(m_EnemySpawnCooldown);
+        if (l_Enemy is SniperEnemy)
+        {
+            SniperEnemy l_Sniper = l_Enemy.transform.GetComponent<SniperEnemy>();
+            l_Sniper.SetBulletPool(m_BulletPool);
+        }
         return l_Enemy;
     }
 
-    public float getEnemyCost()
+    public float GetEnemyCost()
     {
         return m_EnemyCost;
-    }
-    public float getEnemyCooldown()
-    {
-        return m_EnemySpawnCooldown;
     }
 
     public bool CanSpawn()

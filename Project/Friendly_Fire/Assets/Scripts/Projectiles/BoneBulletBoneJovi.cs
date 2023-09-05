@@ -69,7 +69,7 @@ public class BoneBulletBoneJovi : AbsBullet, IRestartable
     {
         gameObject.SetActive(false);
     }
-    public void setParentFriend(BoneJoviFriendScript l_Parent)
+    public void SetParentFriend(BoneJoviFriendScript l_Parent)
     {
         m_BoneFriend = l_Parent;
     }
