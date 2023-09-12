@@ -13,11 +13,9 @@ public class SniperEnemy : AEnemy, IRestartable
     [SerializeField] private float m_DealtDamage = 10f;
     private PoolScript m_SniperBulletPool;
     [SerializeField] private GameObject m_BulletOrigin;
+    private Vector3 m_DizzyScatter = new Vector3();
 
-    public override void ChangeToCooldownState()
-    {
-        m_CurrentState = m_EnemyIAState.COOLDOWN;
-    }
+    
     /*
     [SerializeField] private AudioClip m_FourWayShootSound;
     [SerializeField] private AudioSource m_FourwayAudioSource;
@@ -82,6 +80,11 @@ public class SniperEnemy : AEnemy, IRestartable
         */
         
     }
+    
+    public override void ChangeToCooldownState()
+    {
+        m_CurrentState = m_EnemyIAState.COOLDOWN;
+    }
 
     public void SetBulletPool(PoolScript l_Pool)
     {
@@ -127,10 +130,8 @@ public class SniperEnemy : AEnemy, IRestartable
     public override void Chase()
     {
         Vector2 l_direction = new Vector2(m_PlayerToChase.position.x - m_EnemyRB.position.x,
-            m_PlayerToChase.position.y - m_EnemyRB.position.y);
-        if ((m_CurrentPosition - m_PlayerToChase.position).magnitude >= m_MaxDistanceToPrepare)
-            m_EnemyRB.position += l_direction.normalized * m_ChaseSpeed * Time.deltaTime;
-        else m_EnemyRB.position -= l_direction.normalized * m_ChaseSpeed * Time.deltaTime;
+            m_PlayerToChase.position.y - m_EnemyRB.position.y)*m_Dizzy*m_SpeedMultiplier;
+        m_EnemyRB.position += l_direction.normalized * m_ChaseSpeed * Time.deltaTime;
     }
 
     //PREPARING --> Pending to decide if i delete it
@@ -171,7 +172,21 @@ public class SniperEnemy : AEnemy, IRestartable
         GameObject l_GM = m_SniperBulletPool.EnableObject();
         Vector3 l_RBPosition = new Vector3(m_BulletOrigin.transform.position.x, m_BulletOrigin.transform.position.y, 0f);
         //Quaternion l_Rotation = GetBulletRotation((m_PlayerToChase.position-l_RBPosition).normalized);
-        l_GM.GetComponent<AbsBullet>().FireBullet((m_PlayerToChase.position-l_RBPosition), l_RBPosition-(l_RBPosition-m_PlayerToChase.position).normalized,Quaternion.identity);
+
+        m_DizzyScatter = GetDizzyScatter();
+        l_GM.GetComponent<AbsBullet>().FireBullet((m_PlayerToChase.position-l_RBPosition)+m_DizzyScatter, l_RBPosition-(l_RBPosition-m_PlayerToChase.position).normalized,Quaternion.identity);
+    }
+    
+    private Vector3 GetDizzyScatter()
+    {
+        if (m_Dizzy < 1)
+        {
+            
+            int x = Random.Range(-1, 1);
+            int y = Random.Range(-1, 1);
+            return new Vector3(x, y,0)*3;
+        }
+        else return Vector3.zero;
     }
 
     private void ChangeFromAttacking()
@@ -260,5 +275,22 @@ public class SniperEnemy : AEnemy, IRestartable
     {
         gameObject.SetActive(false);
     }
-    
+
+    public override void ChangeFromCooldown()
+    {
+        if (m_SpeedMultiplier < 1f)
+        {
+            StartCoroutine(WaitForSlowDownSubState());
+        }
+        else
+        {
+            m_CurrentState = m_EnemyIAState.CHASE;
+        }
+    }
+
+    private IEnumerator WaitForSlowDownSubState()
+    {
+        yield return new WaitForSeconds(0.4f);
+        m_CurrentState = m_EnemyIAState.CHASE;
+    }
 }

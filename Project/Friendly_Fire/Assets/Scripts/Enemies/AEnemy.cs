@@ -33,10 +33,11 @@ public abstract class AEnemy : MonoBehaviour, IComparable
 
     public abstract void ChangeToCooldownState();
 
-    public void ChangeFromCooldown()
+    public virtual void ChangeFromCooldown()
     {
         m_CurrentState = m_EnemyIAState.CHASE;
     }
+    
     public abstract void Chase();
     public abstract void Die();
     public abstract void Spawn(Vector3 l_Position, Transform l_Player);

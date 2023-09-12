@@ -5075,7 +5075,8 @@ MonoBehaviour:
   m_ID: Windy
   m_Creator: Pagral
   m_FriendSprite: {fileID: -2052076638, guid: d9431816df557ab498f98170ce0eb0de, type: 3}
-  m_AbilityDescription: 
+  m_AbilityDescription: Every  25 seconds shoots a wind bullet that pierces through
+    3 enemies before disappearing.
 --- !u!95 &1093437385
 Animator:
   serializedVersion: 5
@@ -5113,7 +5114,7 @@ MonoBehaviour:
   m_FriendType: 0
   m_Animator: {fileID: 1093437385}
   m_InitialCooldown: 4
-  m_InitialDamage: 30
+  m_InitialDamage: 25
   m_Pool: {fileID: 0}
   m_CooldownBetweenWaves: 0.5
   m_CooldownBetweenDirections: 0.1
