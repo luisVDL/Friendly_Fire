@@ -8,6 +8,7 @@ public class PlayerFriendManager : MonoBehaviour
     [SerializeField] private List<Transform> m_FriendPositions;
     private List<FriendScript> m_CurrentFriends;
     [SerializeField] private int m_maxNumberOfFriends = 6;
+    [SerializeField] private PickUpFriendSelectorManager m_PickUp;
 
     void Start()
     {
@@ -19,7 +20,14 @@ public class PlayerFriendManager : MonoBehaviour
     {
         if (other.tag == "Friend")
         {
-            if(CanAddFriend()) AddFriend(other.GetComponentInParent<FriendScript>());
+            /*
+             * - Get the Friendscript Component
+             * - Open the PickUp Friend Window
+             * - If want to add check if CanAddFriend()
+             * - If not open a window with all the current friends and the new one choose between them which you want to leave. The selected will be deactivated.
+             */
+            //if(CanAddFriend()) AddFriend(other.GetComponentInParent<FriendScript>());
+            m_PickUp.OpenFriendSelector(other.GetComponentInParent<FriendScript>(), this);
         }
     }
 
@@ -28,7 +36,7 @@ public class PlayerFriendManager : MonoBehaviour
         return m_CurrentFriends.Count <m_maxNumberOfFriends;
     }
 
-    private void AddFriend(FriendScript l_Friend)
+    public void AddFriendToNewPosition(FriendScript l_Friend)
     {
         if (!m_CurrentFriends.Contains(l_Friend))
         {

@@ -12,6 +12,17 @@ public class FriendScript : MonoBehaviour, IComparable
     [SerializeField] private string m_Creator;
     
  
+    /*
+     * Things I need for the friend selector
+     * - friend image
+     * - friend ability description
+     * 
+     */
+
+    [Header("Friend pick up")] 
+    [SerializeField]private Sprite m_FriendSprite;
+    [SerializeField] private string m_AbilityDescription;
+    
 
     public void SetFriendPosition(Transform l_Destination)
     {
@@ -32,9 +43,28 @@ public class FriendScript : MonoBehaviour, IComparable
         else return -200;
     }
 
-    public string getFriendCreator()
+    public string GetFriendCreator()
     {
         return m_Creator;
     }
-    //public abstract UseFriendAbility();
+
+    public string GetFriendName()
+    {
+        return m_ID;
+    }
+
+    public Sprite GetFriendSprite()
+    {
+        return m_FriendSprite;
+    }
+
+    public string GetAbilityDescription()
+    {
+        return m_AbilityDescription;
+    }
+
+    public AFriend getFriendAbilityScript()
+    {
+        return m_FriendActivation;
+    }
 }

@@ -170,8 +170,8 @@ public class SniperEnemy : AEnemy, IRestartable
     {
         GameObject l_GM = m_SniperBulletPool.EnableObject();
         Vector3 l_RBPosition = new Vector3(m_BulletOrigin.transform.position.x, m_BulletOrigin.transform.position.y, 0f);
-        Quaternion l_Rotation = GetBulletRotation((m_PlayerToChase.position-l_RBPosition).normalized);
-        l_GM.GetComponent<AbsBullet>().FireBullet((m_PlayerToChase.position-l_RBPosition), l_RBPosition-(l_RBPosition-m_PlayerToChase.position).normalized,l_Rotation);
+        //Quaternion l_Rotation = GetBulletRotation((m_PlayerToChase.position-l_RBPosition).normalized);
+        l_GM.GetComponent<AbsBullet>().FireBullet((m_PlayerToChase.position-l_RBPosition), l_RBPosition-(l_RBPosition-m_PlayerToChase.position).normalized,Quaternion.identity);
     }
 
     private void ChangeFromAttacking()

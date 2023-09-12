@@ -23,6 +23,7 @@ public abstract class AFriend : MonoBehaviour
     public enum FriendType
     { OFFENSIVE, DEFENSIVE, STATUS, SUPPORT }
 
+    
 
     [SerializeField] protected Image m_CooldownImage;
 
