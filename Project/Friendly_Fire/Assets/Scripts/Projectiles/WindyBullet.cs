@@ -10,6 +10,8 @@ public class WindyBullet : AbsBullet, IRestartable
     [SerializeField] private float m_DamageDealt = 20f;
     
     private float m_LastTimeShot=0.0f;
+    private int currentEnemiesPierced = 0;
+    private int m_MaxEnemiesPierced;
     private Vector3 m_Direction;
     private Rigidbody2D m_BulletRB;
 
@@ -24,6 +26,7 @@ public class WindyBullet : AbsBullet, IRestartable
 
     public override GameObject FireBullet(Vector3 l_Direction, Vector3 l_Position, Quaternion l_rotation)
     {
+        currentEnemiesPierced = 0;
         l_Direction.z = 0;
         transform.position = l_Position;
         transform.rotation = l_rotation;
@@ -33,6 +36,11 @@ public class WindyBullet : AbsBullet, IRestartable
         Trajectory();
         return m_BulletPrefab;
         
+    }
+
+    public void SetMaxEnemiesPierced(int l_Max)
+    {
+        m_MaxEnemiesPierced = l_Max;
     }
     public override void Trajectory()
     {
@@ -48,13 +56,22 @@ public class WindyBullet : AbsBullet, IRestartable
 
     public override void DeactivateBullet()
     {
-        gameObject.SetActive(false);
+        if (currentEnemiesPierced < m_MaxEnemiesPierced)
+        {
+            currentEnemiesPierced += 1;
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
+        
     }
 
     void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.tag == "Environment")
         {
+            currentEnemiesPierced = m_MaxEnemiesPierced;
             DeactivateBullet();
         }
     }

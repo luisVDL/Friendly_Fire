@@ -5074,6 +5074,8 @@ MonoBehaviour:
   m_FriendActivation: {fileID: 1653086130635546494}
   m_ID: Windy
   m_Creator: Pagral
+  m_FriendSprite: {fileID: -2052076638, guid: d9431816df557ab498f98170ce0eb0de, type: 3}
+  m_AbilityDescription: 
 --- !u!95 &1093437385
 Animator:
   serializedVersion: 5
@@ -5115,6 +5117,7 @@ MonoBehaviour:
   m_Pool: {fileID: 0}
   m_CooldownBetweenWaves: 0.5
   m_CooldownBetweenDirections: 0.1
+  m_MaxEnemiesPierced: 3
 --- !u!1 &5589169103908290718
 GameObject:
   m_ObjectHideFlags: 0

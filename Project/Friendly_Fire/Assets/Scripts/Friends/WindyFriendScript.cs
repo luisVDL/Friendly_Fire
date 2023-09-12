@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class WindyFriendScript : OffensiveFriend, IRestartable
     [SerializeField] private PoolScript m_Pool;
     [SerializeField] private float m_CooldownBetweenWaves=0.5f;
     [SerializeField] private float m_CooldownBetweenDirections =0.3f;
+    [SerializeField] private int m_MaxEnemiesPierced = 3;
 
     void OnEnable()
     {
@@ -44,13 +46,39 @@ public class WindyFriendScript : OffensiveFriend, IRestartable
 
     public override bool ActivateFriendAbility()
     {
-                m_Ability = true;
-                m_Animator.SetTrigger("Attack");
-                //m_LastActivationTime = Time.time;
-                StartCoroutine(ShootWind());
-                return true;
+        m_LastActivationTime = Time.time;
+        m_Ability = true;
+        m_Animator.SetTrigger("Attack");
+        //m_LastActivationTime = Time.time;
+                
+        GameObject l_GO;
+        WindyBullet l_Bullet;
+
+        l_GO = m_Pool.EnableObject();
+        l_Bullet = l_GO.GetComponent<WindyBullet>();
+        try
+        { 
+            Vector3 l_direction = NewEnemyManager.getEnemyPosition() - transform.position; 
+            l_Bullet.SetMaxEnemiesPierced(m_MaxEnemiesPierced); 
+            l_Bullet.FireBullet(l_direction, transform.position, GetBulletRotation(l_direction));
+        }
+        catch (Exception e)
+        {
+            print("Doesn't get the location");
+        }
+
+        m_Ability = false;
+        //StartCoroutine(ShootWind());
+        return true;
     }
 
+    
+    private Quaternion GetBulletRotation(Vector3 l_Reference)
+    {
+        float l_RotationZ=Mathf.Atan2(l_Reference.y, l_Reference.x) * Mathf.Rad2Deg;
+        return Quaternion.AngleAxis(l_RotationZ, Vector3.forward);
+
+    }
     private IEnumerator ShootWind()
     {
         for (int i = 0; i < m_Waves; i++)
