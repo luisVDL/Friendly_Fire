@@ -17,6 +17,7 @@ public abstract class AEnemy : MonoBehaviour, IComparable
     protected m_EnemyIAState m_CurrentState;
     [SerializeField]protected float m_SpeedMultiplier = 1;
     [SerializeField]protected float m_SpawnCooldown;
+    [SerializeField] protected int m_EnemyScore;
     protected enum m_EnemyIAState{
         CHASE, ATTACKING, COOLDOWN, PREPARING, DEATH
     }
@@ -129,5 +130,10 @@ public abstract class AEnemy : MonoBehaviour, IComparable
             m_SubStatuses.Remove(l_Substatus);
             Destroy(l_Substatus);
         }
+    }
+
+    public int getScore()
+    {
+        return m_EnemyScore;
     }
 }

@@ -5179,6 +5179,9 @@ MonoBehaviour:
   m_FriendActivation: {fileID: 4043604966270608665}
   m_ID: Octavius
   m_Creator: Dark Greteus
+  m_FriendSprite: {fileID: -452225158, guid: 2f718e057a2cec1468d5c307bd0a5524, type: 3}
+  m_AbilityDescription: Every 3 seconds spawns 5 tentacles that deal damage to the
+    enemies and pushe them.
 --- !u!114 &4043604966270608665
 MonoBehaviour:
   m_ObjectHideFlags: 0

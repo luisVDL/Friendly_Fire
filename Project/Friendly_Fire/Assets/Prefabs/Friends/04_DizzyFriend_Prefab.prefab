@@ -413,6 +413,8 @@ MonoBehaviour:
   m_FriendActivation: {fileID: 7588481446121740728}
   m_ID: Dizzy
   m_Creator: Dark Greteus
+  m_FriendSprite: {fileID: 924217974, guid: 84c2a1090baab384cac674ca0a219a07, type: 3}
+  m_AbilityDescription: Every 8 seconds invokes an area that confuses the enemy.
 --- !u!95 &7588481446121740727
 Animator:
   serializedVersion: 5

@@ -5158,6 +5158,8 @@ MonoBehaviour:
   m_FriendActivation: {fileID: 7588481445488409822}
   m_ID: Bone Jovi
   m_Creator: Dark Greteus
+  m_FriendSprite: {fileID: 545121834, guid: 5104c55c37879a541bd2139f0a2e20bd, type: 3}
+  m_AbilityDescription: Every 3 seconds spawns 5 bones that deal 40 damage each.
 --- !u!95 &4551187648818740741
 Animator:
   serializedVersion: 5

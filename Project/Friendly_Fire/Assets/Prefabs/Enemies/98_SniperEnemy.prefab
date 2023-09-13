@@ -463,7 +463,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SpeedMultiplier: 1
-  m_SpawnCooldown: 0
+  m_SpawnCooldown: 0.5
+  m_EnemyScore: 50
   m_DizzyAnimation: {fileID: 5312357659962819239}
   m_SlowDownAnimation: {fileID: 5312357659930062474}
   m_ChaseSpeed: 2.5

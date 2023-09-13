@@ -18,13 +18,28 @@ public class MenuController : MonoBehaviour
     [Header("Pause Menu")] 
     [SerializeField] private GameObject m_PauseMenuPanel;
     [SerializeField] private GameObject m_FirstPauseButtonSelected;
+    private PlayerInputKeyboard m_PlayerInput_KEYBOARD;
     
     
     [Header("Events")] 
     [SerializeField] private UnityEvent ResumeGame;
+    
+    void Awake()
+    {
+        m_PlayerInput_KEYBOARD = new PlayerInputKeyboard();
+    }
+    private void OnEnable()
+    {
+        m_PlayerInput_KEYBOARD.Enable();
+    }
     void Start()
     {
         EventSystem.current.SetSelectedGameObject(m_FirstPauseButtonSelected);
+    }
+
+    void Update()
+    {
+       if(m_PlayerInput_KEYBOARD.Pause.Pause.WasPressedThisFrame()) PauseGame();
     }
     public void QuitGame()
     {
@@ -36,9 +51,16 @@ public class MenuController : MonoBehaviour
         SceneManager.LoadScene("01_Forest");
     }
 
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene("00_StartMenu");
+    }
+
     public void ContinueGame()
     {
-        
+        m_PauseMenuPanel.SetActive(false);
+        ResumeGame.Invoke();
+        Time.timeScale = 1f;
     }
 
     public void PauseGame()

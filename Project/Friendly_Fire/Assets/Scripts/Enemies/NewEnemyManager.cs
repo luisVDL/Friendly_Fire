@@ -28,6 +28,8 @@ public class NewEnemyManager : MonoBehaviour
     [SerializeField] private Transform m_DownLeftLimit;
     [SerializeField] private Transform m_DownRightLimit;
     [Space] 
+    [SerializeField] private Collider2D m_TilemapCollider;
+    [Space] 
     
     [Header("Wave Points System")] 
     [Range(1, 25)] [SerializeField] private float m_maxPointsPerWave = 10;
@@ -59,7 +61,8 @@ public class NewEnemyManager : MonoBehaviour
     [Space] 
     [Header("SCORE (DELETE LATER)")] 
     [SerializeField] private TextMeshProUGUI m_ScoreText;
-    private float m_CurrentScore;
+    private static int m_CurrentScore;
+    private static TextMeshProUGUI m_ScoreTextStatic;
 
 
     //We use this variable to avoid executing two times the CreateWave method
@@ -68,6 +71,7 @@ public class NewEnemyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        m_ScoreTextStatic = m_ScoreText;
         m_EnemyClassesSTATIC = m_EnemyClasses;
         m_CurrentScore = 0;
         m_WaveCooldownSTATIC = m_WaveCooldown;
@@ -227,6 +231,7 @@ public class NewEnemyManager : MonoBehaviour
             if (l_collider.OverlapPoint(l_position)) return false;
         }
         */
+        //return m_TilemapCollider.OverlapPoint(l_position);
         return true;
     }
 
@@ -241,6 +246,8 @@ public class NewEnemyManager : MonoBehaviour
     public static void DecreaseNumberOfEnemies(AEnemy l_Enemy)
     {
         m_EnemiesAlive.Remove(l_Enemy);
+        m_CurrentScore+=l_Enemy.getScore();
+        m_ScoreTextStatic.text = m_CurrentScore+"";
         ShowEnemiesRemaining();
         if (m_EnemiesAlive.Count == 0)
         {
