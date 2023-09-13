@@ -18,6 +18,7 @@ public class NewEnemyManager : MonoBehaviour
 
     [Header("Enemies classes to spawn")] 
     [SerializeField] private List<EnemyClassManager> m_EnemyClasses;
+    private static List<EnemyClassManager> m_EnemyClassesSTATIC;
     [Space] 
     
     
@@ -31,10 +32,11 @@ public class NewEnemyManager : MonoBehaviour
     [Header("Wave Points System")] 
     [Range(1, 25)] [SerializeField] private float m_maxPointsPerWave = 10;
     [Range(5, 25)] [SerializeField] private float m_AddedPointsPerWave = 5;
-    
 
     //This variables will change during the game to increase to manage the wave system
     private static float m_CurrentMaxPointsPerWave;
+    private static float m_CurrentAddedPointsPerWave;
+    private static List<AEnemy> m_EnemiesToSpawn;
     private static List<AEnemy> m_EnemiesAlive;
     //private static int m_CurrentEnemiesAlive;
     private static int m_WaveNumber;
@@ -53,20 +55,31 @@ public class NewEnemyManager : MonoBehaviour
 
     [SerializeField] private UnityEvent EnemyDiedEnemyDied;
 
+
+    [Space] 
+    [Header("SCORE (DELETE LATER)")] 
+    [SerializeField] private TextMeshProUGUI m_ScoreText;
+    private float m_CurrentScore;
+
+
     //We use this variable to avoid executing two times the CreateWave method
     private bool m_Spawning;
     
     // Start is called before the first frame update
     void Start()
     {
+        m_EnemyClassesSTATIC = m_EnemyClasses;
+        m_CurrentScore = 0;
         m_WaveCooldownSTATIC = m_WaveCooldown;
         m_SpawnTime = Time.time + m_WaveCooldown;
         //m_CurrentEnemiesAlive = 0;
         m_EnemiesAlive = new List<AEnemy>();
+        m_EnemiesToSpawn = new List<AEnemy>();
         m_WaveNumber = 0;
         m_MaxRandomValuePerWave = 1;
         m_Spawning = false;
         m_CurrentMaxPointsPerWave = m_maxPointsPerWave;
+        m_CurrentAddedPointsPerWave = m_AddedPointsPerWave;
         ShowWaveNumber();
         m_RemainingEnemiesTextSTATIC = m_RemainingEnemiesText;
 
@@ -86,9 +99,9 @@ public class NewEnemyManager : MonoBehaviour
             }
     }
 
-    private void IncreaseMaxNumberEnemiesPerWave()
+    private static void IncreaseMaxNumberEnemiesPerWave() 
     {
-        foreach (EnemyClassManager l_Spawner in m_EnemyClasses)
+        foreach (EnemyClassManager l_Spawner in m_EnemyClassesSTATIC)
         {
             l_Spawner.IncreaseMaxNEnemies();
         }
@@ -100,26 +113,37 @@ public class NewEnemyManager : MonoBehaviour
         float l_currentCost = 0;
         // This list will contain the enemies to spawn. This will be sent to a coroutine to spawn those enemies.
         //List<AEnemy> l_EnemiesToSpawn = new List<AEnemy>();
-
+        m_EnemiesToSpawn = new List<AEnemy>();
+        
         int l_Random;
         EnemyClassManager l_EnemyClass;
         while (l_currentCost<m_CurrentMaxPointsPerWave)
         {
             l_Random = Random.Range(0, m_MaxRandomValuePerWave);
-            l_EnemyClass = m_EnemyClasses[l_Random];
+            l_EnemyClass = m_EnemyClassesSTATIC[l_Random];
             if (l_EnemyClass.CanSpawn())
             {
                 l_currentCost += l_EnemyClass.GetEnemyCost();
                 //l_EnemiesToSpawn.Add(l_EnemyClass.getEnemy());
-                m_EnemiesAlive.Add(l_EnemyClass.getEnemy());
+                m_EnemiesToSpawn.Add(l_EnemyClass.getEnemy());
+
             }
             
         }
-        
+
+        DuplicateSpawnToAlive();
         
         //m_CurrentEnemiesAlive = l_EnemiesToSpawn.Count;
         ShowEnemiesRemaining();
-        StartCoroutine(SpawnWave(m_EnemiesAlive)); //l_EnemiesToSpawn));
+        StartCoroutine(SpawnWave(m_EnemiesToSpawn)); //l_EnemiesToSpawn));
+    }
+
+    private void DuplicateSpawnToAlive()
+    {
+        foreach (AEnemy l_Enemy in m_EnemiesToSpawn)
+        {
+            m_EnemiesAlive.Add(l_Enemy);
+        }
     }
 
     private IEnumerator SpawnWave(List<AEnemy> l_Enemies)
@@ -218,7 +242,12 @@ public class NewEnemyManager : MonoBehaviour
     {
         m_EnemiesAlive.Remove(l_Enemy);
         ShowEnemiesRemaining();
-        if (m_EnemiesAlive.Count == 0) m_SpawnTime = Time.time+ m_WaveCooldownSTATIC;
+        if (m_EnemiesAlive.Count == 0)
+        {
+            m_SpawnTime = Time.time+ m_WaveCooldownSTATIC;
+            m_CurrentMaxPointsPerWave += m_CurrentAddedPointsPerWave;
+            IncreaseMaxNumberEnemiesPerWave();
+        }
     }
     
 }

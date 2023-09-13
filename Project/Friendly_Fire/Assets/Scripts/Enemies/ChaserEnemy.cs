@@ -50,7 +50,7 @@ public class ChaserEnemy : AEnemy, IRestartable
     {
         m_EnemyRB.velocity *= 0.3f;
         m_CurrentState = m_EnemyIAState.COOLDOWN;
-        m_Animator.SetTrigger("Cooldown");
+        //m_Animator.SetTrigger("Cooldown");
     }
 
     void Start()
