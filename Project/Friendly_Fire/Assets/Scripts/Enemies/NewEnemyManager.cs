@@ -29,7 +29,7 @@ public class NewEnemyManager : MonoBehaviour
     [SerializeField] private Transform m_DownLeftLimit;
     [SerializeField] private Transform m_DownRightLimit;
     [Space] 
-    [SerializeField] private Collider2D m_TilemapCollider;
+    [SerializeField] private List<Collider2D> m_MapColliders;
     [Space] 
     
     [Header("Wave Points System")] 
@@ -41,10 +41,9 @@ public class NewEnemyManager : MonoBehaviour
     private static float m_CurrentAddedPointsPerWave;
     private static List<AEnemy> m_EnemiesToSpawn;
     private static List<AEnemy> m_EnemiesAlive;
-    //private static int m_CurrentEnemiesAlive;
     private static int m_WaveNumber;
     [Space] 
-    //This value is used to limit the number of diferent types of enemies to spawn in the current wave
+    //This value is used to limit the number of different types of enemies to spawn in the current wave
     private static int m_MaxRandomValuePerWave;
     [Range(5,25)]  [Tooltip("This is the number of waves that the player has to survive to increment the max number of each enemy")][SerializeField]private int m_WavesToIncrementMaxRandomValue = 5;
     
@@ -78,7 +77,6 @@ public class NewEnemyManager : MonoBehaviour
         m_CurrentScore = 0;
         m_WaveCooldownSTATIC = m_WaveCooldown;
         m_SpawnTime = Time.time + m_WaveCooldown;
-        //m_CurrentEnemiesAlive = 0;
         m_EnemiesAlive = new List<AEnemy>();
         m_EnemiesToSpawn = new List<AEnemy>();
         m_WaveNumber = 0;
@@ -118,7 +116,6 @@ public class NewEnemyManager : MonoBehaviour
         //We use this int to control the value of the enemies of that wave
         float l_currentCost = 0;
         // This list will contain the enemies to spawn. This will be sent to a coroutine to spawn those enemies.
-        //List<AEnemy> l_EnemiesToSpawn = new List<AEnemy>();
         m_EnemiesToSpawn = new List<AEnemy>();
         
         int l_Random;
@@ -130,7 +127,6 @@ public class NewEnemyManager : MonoBehaviour
             if (l_EnemyClass.CanSpawn())
             {
                 l_currentCost += l_EnemyClass.GetEnemyCost();
-                //l_EnemiesToSpawn.Add(l_EnemyClass.getEnemy());
                 m_EnemiesToSpawn.Add(l_EnemyClass.getEnemy());
 
             }
@@ -139,9 +135,8 @@ public class NewEnemyManager : MonoBehaviour
 
         DuplicateSpawnToAlive();
         
-        //m_CurrentEnemiesAlive = l_EnemiesToSpawn.Count;
         ShowEnemiesRemaining();
-        StartCoroutine(SpawnWave(m_EnemiesToSpawn)); //l_EnemiesToSpawn));
+        StartCoroutine(SpawnWave(m_EnemiesToSpawn));
     }
 
     private void DuplicateSpawnToAlive()
@@ -175,7 +170,6 @@ public class NewEnemyManager : MonoBehaviour
     private static void ShowEnemiesRemaining()
     {
         m_RemainingEnemiesTextSTATIC.SetText(m_EnemiesAlive.Count+"");
-        //m_RemainingEnemiesText.SetText(m_CurrentEnemiesAlive+"");
     }
     
     
@@ -185,7 +179,7 @@ public class NewEnemyManager : MonoBehaviour
     
     private Vector3 GetRandomPosition()
     {
-        Vector2 l_position = new Vector2(0,0); //m_TempleAreas[0].transform.position;
+        Vector2 l_position = new Vector2(0,0); 
         do
         {
             int l_random = Random.Range(0,4);
@@ -225,8 +219,10 @@ public class NewEnemyManager : MonoBehaviour
 
     private bool CorrectSpawnPosition(Vector2 l_position)
     {
-        if (l_position.x<m_DownLeftLimit.position.x || l_position.x>m_DownRightLimit.position.x) return false;
+        
+        /*if (l_position.x<m_DownLeftLimit.position.x || l_position.x>m_DownRightLimit.position.x) return false;
         else if (l_position.y<m_DownLeftLimit.position.y ||l_position.y>m_UpRightLimit.position.y) return false;
+        */
         /*
         foreach(BoxCollider2D l_collider in m_TempleAreas)
         {
@@ -234,17 +230,17 @@ public class NewEnemyManager : MonoBehaviour
         }
         */
         //return m_TilemapCollider.OverlapPoint(l_position);
-        return true;
+
+        foreach (Collider2D l_Collider in m_MapColliders)
+        {
+            if (l_Collider.OverlapPoint(l_position)) return true;
+        }
+        return false;
     }
 
     public static Vector3 getEnemyPosition()
     {
-        /*
-        int l_random = Random.Range(0, m_EnemiesAlive.Count);
-
-        return m_EnemiesAlive[l_random].transform.position;
-        */
-
+        
         Vector3 l_FinalEnemyPosition = new Vector3();
         float l_MinDistance = 200f;
         float l_EnemyDistance = 0;
