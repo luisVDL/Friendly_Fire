@@ -108,10 +108,10 @@ TextureImporter:
       name: 01_Sprite_Forest_Obstacles_Prop_0
       rect:
         serializedVersion: 2
-        x: 7
-        y: 128
-        width: 50
-        height: 63
+        x: 0
+        y: 256
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -129,10 +129,10 @@ TextureImporter:
       name: 01_Sprite_Forest_Obstacles_Prop_1
       rect:
         serializedVersion: 2
-        x: 73
-        y: 130
-        width: 47
-        height: 34
+        x: 64
+        y: 256
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -150,10 +150,10 @@ TextureImporter:
       name: 01_Sprite_Forest_Obstacles_Prop_2
       rect:
         serializedVersion: 2
-        x: 2
-        y: 69
-        width: 57
-        height: 44
+        x: 128
+        y: 256
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -171,10 +171,10 @@ TextureImporter:
       name: 01_Sprite_Forest_Obstacles_Prop_3
       rect:
         serializedVersion: 2
-        x: 68
-        y: 68
-        width: 57
-        height: 50
+        x: 192
+        y: 256
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -192,10 +192,10 @@ TextureImporter:
       name: 01_Sprite_Forest_Obstacles_Prop_4
       rect:
         serializedVersion: 2
-        x: 1
-        y: 2
-        width: 63
-        height: 52
+        x: 0
+        y: 192
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -213,10 +213,10 @@ TextureImporter:
       name: 01_Sprite_Forest_Obstacles_Prop_5
       rect:
         serializedVersion: 2
-        x: 83
-        y: 9
-        width: 32
-        height: 15
+        x: 64
+        y: 192
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -226,6 +226,237 @@ TextureImporter:
       bones: []
       spriteID: 48332c2e21ce8034c853631033effc23
       internalID: -204970679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 01_Sprite_Forest_Obstacles_Prop_6
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c05c392dd4b32f14a8c290fc0e7ebaa7
+      internalID: 122269131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 01_Sprite_Forest_Obstacles_Prop_7
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ae10ae84169ec34582570dc0904f786
+      internalID: -649358476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 01_Sprite_Forest_Obstacles_Prop_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfeaebcf0e7ec4048a04adc7fc532123
+      internalID: 551922288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 01_Sprite_Forest_Obstacles_Prop_9
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 993e3c83ac504de4189210ad253d5ba6
+      internalID: -1901842936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 01_Sprite_Forest_Obstacles_Prop_10
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9098fdcc8be8544baee16dbb19fd7ea
+      internalID: -602433266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 01_Sprite_Forest_Obstacles_Prop_11
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ffe825bb816479947a6d46fc0713288f
+      internalID: -229081896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 01_Sprite_Forest_Obstacles_Prop_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7c6236d5c74aba4287824b5b7f9b135
+      internalID: -1433068435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 01_Sprite_Forest_Obstacles_Prop_13
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e56076469d9f094439f611a45c1e8727
+      internalID: 876536389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 01_Sprite_Forest_Obstacles_Prop_14
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82358a316925ac64ca060058820c774b
+      internalID: -1645308022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 01_Sprite_Forest_Obstacles_Prop_15
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b00ed62e05bf4040817855c9a9e3190
+      internalID: 1100856586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 01_Sprite_Forest_Obstacles_Prop_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 978f5dcc99cb5124a9e23588e4ce8254
+      internalID: 648663760
       vertices: []
       indices: 
       edges: []
@@ -243,10 +474,21 @@ TextureImporter:
     nameFileIdTable:
       01_Sprite_Forest_Obstacles_Prop_0: 129671596
       01_Sprite_Forest_Obstacles_Prop_1: 1039553356
+      01_Sprite_Forest_Obstacles_Prop_10: -602433266
+      01_Sprite_Forest_Obstacles_Prop_11: -229081896
+      01_Sprite_Forest_Obstacles_Prop_12: -1433068435
+      01_Sprite_Forest_Obstacles_Prop_13: 876536389
+      01_Sprite_Forest_Obstacles_Prop_14: -1645308022
+      01_Sprite_Forest_Obstacles_Prop_15: 1100856586
+      01_Sprite_Forest_Obstacles_Prop_16: 648663760
       01_Sprite_Forest_Obstacles_Prop_2: -998865893
       01_Sprite_Forest_Obstacles_Prop_3: -933786189
       01_Sprite_Forest_Obstacles_Prop_4: -262495816
       01_Sprite_Forest_Obstacles_Prop_5: -204970679
+      01_Sprite_Forest_Obstacles_Prop_6: 122269131
+      01_Sprite_Forest_Obstacles_Prop_7: -649358476
+      01_Sprite_Forest_Obstacles_Prop_8: 551922288
+      01_Sprite_Forest_Obstacles_Prop_9: -1901842936
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
