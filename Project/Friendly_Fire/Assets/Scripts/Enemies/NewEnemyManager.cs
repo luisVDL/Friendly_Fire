@@ -9,6 +9,7 @@ public class NewEnemyManager : MonoBehaviour
     [Header("General")] 
     [SerializeField] private int m_MaxNumberOfEnemies = 300;
     [SerializeField] private Transform m_Player;
+    private static Transform m_PlayerStatic;
     [SerializeField] private float m_MinDistance = 10f;
     [SerializeField] private float m_MaxDistance = 20f;
     [SerializeField] [Range(1, 5)]private float m_WaveCooldown = 2f;
@@ -71,6 +72,7 @@ public class NewEnemyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        m_PlayerStatic = m_Player;
         m_ScoreTextStatic = m_ScoreText;
         m_EnemyClassesSTATIC = m_EnemyClasses;
         m_CurrentScore = 0;
@@ -156,7 +158,7 @@ public class NewEnemyManager : MonoBehaviour
         foreach (AEnemy l_Enemy in l_Enemies)
         {
             
-            l_Enemy.Spawn(GetRandomPosition(), m_Player);
+            l_Enemy.Spawn(GetRandomPosition(), m_PlayerStatic);
             yield return new WaitForSeconds(l_Enemy.getSpawnCooldown());
         }
 
@@ -191,27 +193,27 @@ public class NewEnemyManager : MonoBehaviour
         {
             case 0:
                 l_position =
-                    new Vector2(Random.Range(m_Player.position.x + m_MinDistance, m_Player.position.x + m_MaxDistance),
-                        Random.Range(m_Player.position.y + m_MinDistance, m_Player.position.y + m_MaxDistance));
+                    new Vector2(Random.Range(m_PlayerStatic.position.x + m_MinDistance, m_PlayerStatic.position.x + m_MaxDistance),
+                        Random.Range(m_PlayerStatic.position.y + m_MinDistance, m_PlayerStatic.position.y + m_MaxDistance));
                 break;
                 
             case 1 :
                 l_position = 
-                    new Vector2(Random.Range(m_Player.position.x - m_MaxDistance, m_Player.position.x - m_MinDistance),
-                        Random.Range(m_Player.position.y + m_MinDistance, m_Player.position.y + m_MaxDistance));
+                    new Vector2(Random.Range(m_PlayerStatic.position.x - m_MaxDistance, m_PlayerStatic.position.x - m_MinDistance),
+                        Random.Range(m_PlayerStatic.position.y + m_MinDistance, m_PlayerStatic.position.y + m_MaxDistance));
 
                 break;
                 
             case 2:
                 l_position =
-                    new Vector2(Random.Range(m_Player.position.x + m_MinDistance, m_Player.position.x + m_MaxDistance),
-                        Random.Range(m_Player.position.y - m_MaxDistance, m_Player.position.y - m_MinDistance));
+                    new Vector2(Random.Range(m_PlayerStatic.position.x + m_MinDistance, m_PlayerStatic.position.x + m_MaxDistance),
+                        Random.Range(m_PlayerStatic.position.y - m_MaxDistance, m_PlayerStatic.position.y - m_MinDistance));
                 break;
                 
             default:
                 l_position =
-                    new Vector2(Random.Range(m_Player.position.x - m_MaxDistance, m_Player.position.x - m_MinDistance),
-                        Random.Range(m_Player.position.y - m_MaxDistance, m_Player.position.y - m_MinDistance));
+                    new Vector2(Random.Range(m_PlayerStatic.position.x - m_MaxDistance, m_PlayerStatic.position.x - m_MinDistance),
+                        Random.Range(m_PlayerStatic.position.y - m_MaxDistance, m_PlayerStatic.position.y - m_MinDistance));
                 break;
                 
         }
@@ -237,8 +239,32 @@ public class NewEnemyManager : MonoBehaviour
 
     public static Vector3 getEnemyPosition()
     {
+        /*
         int l_random = Random.Range(0, m_EnemiesAlive.Count);
 
+        return m_EnemiesAlive[l_random].transform.position;
+        */
+
+        Vector3 l_FinalEnemyPosition = new Vector3();
+        float l_MinDistance = 200f;
+        float l_EnemyDistance = 0;
+        foreach (AEnemy l_Enemy in m_EnemiesAlive)
+        {
+            l_EnemyDistance = Vector3.Distance(m_PlayerStatic.transform.position, l_Enemy.transform.position);
+            if (l_MinDistance > l_EnemyDistance)
+            {
+                l_MinDistance = l_EnemyDistance;
+                l_FinalEnemyPosition = l_Enemy.transform.position;
+            }
+        }
+
+
+        return l_FinalEnemyPosition;
+    }
+
+    public static Vector3 getRandomEnemyPosition()
+    {
+        int l_random = Random.Range(0, m_EnemiesAlive.Count);
         return m_EnemiesAlive[l_random].transform.position;
     }
 

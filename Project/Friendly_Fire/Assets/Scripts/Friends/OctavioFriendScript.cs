@@ -23,7 +23,6 @@ public class OctavioFriendScript : OffensiveFriend, IRestartable
     void Update()
     {
         m_CooldownImage.fillAmount = (Time.time - m_LastActivationTime) / m_CurrentCooldown;
-        //print((Time.time - m_LastActivationTime) / m_CurrentCooldown);
         if (Time.time > m_LastActivationTime + m_CurrentCooldown)
         {
             m_Animator.SetTrigger("Attack");
@@ -54,7 +53,7 @@ public class OctavioFriendScript : OffensiveFriend, IRestartable
             
             try
             {
-                l_Tentacle.FireBullet(Vector3.zero, NewEnemyManager.getEnemyPosition(),transform.rotation);
+                l_Tentacle.FireBullet(Vector3.zero, NewEnemyManager.getRandomEnemyPosition(),transform.rotation);
             }
             catch (Exception e)
             {
