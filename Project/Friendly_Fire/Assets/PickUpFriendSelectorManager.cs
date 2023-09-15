@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class PickUpFriendSelectorManager : MonoBehaviour
 {
     [SerializeField] private GameObject m_FriendSelectorPanel;
+    [SerializeField] private GameObject m_FirstSelectedButton;
     [SerializeField] private PlayerFriendManager m_Player;
     private FriendScript m_Friend;
 
@@ -20,6 +22,8 @@ public class PickUpFriendSelectorManager : MonoBehaviour
 
     public void OpenFriendSelector(FriendScript l_Friend, PlayerFriendManager l_Player)
     {
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(m_FirstSelectedButton);
         Time.timeScale = 0f;
         m_Friend = l_Friend;
         m_Player = l_Player;
