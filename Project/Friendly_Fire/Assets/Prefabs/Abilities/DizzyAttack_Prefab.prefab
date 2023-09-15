@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_StatusToSpread: {fileID: 2644130859903091781}
-  m_Duration: 2.5
+  m_Duration: 4
   m_SubStateName: Dizzy
 --- !u!1 &2644130861852482915
 GameObject:
