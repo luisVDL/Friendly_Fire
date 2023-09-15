@@ -11,11 +11,11 @@ public class HealthDisplay : MonoBehaviour
     [SerializeField] private Image m_TRANSITIONLifebar;
 
     private float m_CurrentHealth, m_MaxHealth;
-    
+
     //TIME
-    [SerializeField] private float m_TransitionSpeed =2f;
+    [SerializeField] private float m_TransitionSpeed = 2f;
     private float m_LerpTime;
-    
+
     //MENUS
     [SerializeField] private GameObject m_DeathMenu;
 
@@ -30,14 +30,21 @@ public class HealthDisplay : MonoBehaviour
     {
         AnimateLifebar();
     }
+
     public void DecreaseLifebar(float l_currentHealth, float l_MaxHealth)
     {
-
-        m_CurrentHealth = l_currentHealth;
-        m_MaxHealth = l_MaxHealth;
-        m_LerpTime = 0f;
-        m_REALLifebar.fillAmount = m_CurrentHealth/m_MaxHealth;
-        AnimateLifebar();
+        if (l_currentHealth <= 0)
+        {
+            ShowDeathMenu();
+        }
+        else
+        {
+            m_CurrentHealth = l_currentHealth;
+            m_MaxHealth = l_MaxHealth;
+            m_LerpTime = 0f;
+            m_REALLifebar.fillAmount = m_CurrentHealth / m_MaxHealth;
+            AnimateLifebar();
+        }
     }
 
     public void IncreaseLifebar(float l_currentHealth, float l_MaxHealth)
@@ -45,7 +52,7 @@ public class HealthDisplay : MonoBehaviour
         m_CurrentHealth = l_currentHealth;
         m_MaxHealth = l_MaxHealth;
         m_LerpTime = 0f;
-        m_TRANSITIONLifebar.fillAmount = m_CurrentHealth/m_MaxHealth;
+        m_TRANSITIONLifebar.fillAmount = m_CurrentHealth / m_MaxHealth;
         AnimateLifebar();
     }
 
@@ -59,14 +66,15 @@ public class HealthDisplay : MonoBehaviour
             m_LerpTime += Time.deltaTime;
             float percentComplete = m_LerpTime / m_TransitionSpeed;
             m_TRANSITIONLifebar.fillAmount = Mathf.Lerp(l_FillBack, l_HFraction, percentComplete);
-        }else if(l_FillFront < l_HFraction)
+        }
+        else if (l_FillFront < l_HFraction)
         {
             m_LerpTime += Time.deltaTime;
             float percentComplete = m_LerpTime / m_TransitionSpeed;
             m_REALLifebar.fillAmount = Mathf.Lerp(l_FillFront, l_HFraction, percentComplete);
         }
     }
-    
+
     public void ShowDeathMenu()
     {
         //m_GameOverSoundAS.PlayOneShot(m_GameOverSound);
@@ -78,5 +86,4 @@ public class HealthDisplay : MonoBehaviour
         //set a new active selected object
         //EventSystem.current.SetSelectedGameObject(m_FirstSelectedButton);
     }
-    
 }

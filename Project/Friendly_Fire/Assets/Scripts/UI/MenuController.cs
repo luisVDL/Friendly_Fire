@@ -49,11 +49,13 @@ public class MenuController : MonoBehaviour
     public void StartGame()
     {
         SceneManager.LoadScene("01_Forest");
+        Time.timeScale = 1f;
     }
 
     public void GoToMainMenu()
     {
         SceneManager.LoadScene("00_StartMenu");
+        Time.timeScale = 1f;
     }
 
     public void ContinueGame()

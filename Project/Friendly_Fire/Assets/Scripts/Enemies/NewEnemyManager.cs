@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 public class NewEnemyManager : MonoBehaviour
 {
@@ -30,6 +32,8 @@ public class NewEnemyManager : MonoBehaviour
     [SerializeField] private Transform m_DownRightLimit;
     [Space] 
     [SerializeField] private List<Collider2D> m_MapColliders;
+     private static List<SpawnAreaBehaviour> m_SpawnAreas;
+     private int m_IndexArea=0;
     [Space] 
     
     [Header("Wave Points System")] 
@@ -71,6 +75,7 @@ public class NewEnemyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        m_SpawnAreas = new List<SpawnAreaBehaviour>();
         m_PlayerStatic = m_Player;
         m_ScoreTextStatic = m_ScoreText;
         m_EnemyClassesSTATIC = m_EnemyClasses;
@@ -180,7 +185,9 @@ public class NewEnemyManager : MonoBehaviour
     private Vector3 GetRandomPosition()
     {
         Vector2 l_position = new Vector2(0,0); 
-        do
+        
+        
+        /*do
         {
             int l_random = Random.Range(0,4);
             switch (l_random)
@@ -212,10 +219,36 @@ public class NewEnemyManager : MonoBehaviour
                 
         }
         } while (!CorrectSpawnPosition(l_position));
+        */
+
+
+        BoxCollider2D l_collider;
+        do
+        {
+            if (m_SpawnAreas.Count == 1) m_IndexArea = 0;
+
+            l_collider = m_SpawnAreas[m_IndexArea].GetCollider();
+            l_position = GetRandomPositionInCollider(l_collider);
+        } while (!DistanceIsOk(l_position));
         
         return l_position;
     }
-    
+
+    private Vector2 GetRandomPositionInCollider(BoxCollider2D l_collider)
+    {
+        Bounds l_Bounds = l_collider.bounds;
+        float randomX = Random.Range(l_Bounds.min.x, l_Bounds.max.x);
+        float randomY = Random.Range(l_Bounds.min.y, l_Bounds.max.y);
+
+        return new Vector2(randomX, randomY);
+
+    }
+
+    private bool DistanceIsOk(Vector2 l_position)
+    {
+        float l_Distance = Mathf.Abs(Vector2.Distance(l_position, m_Player.position));
+        return l_Distance < m_MaxDistance && l_Distance > m_MinDistance;
+    }
 
     private bool CorrectSpawnPosition(Vector2 l_position)
     {
@@ -236,8 +269,30 @@ public class NewEnemyManager : MonoBehaviour
             if (l_Collider.OverlapPoint(l_position)) return true;
         }
         return false;
+        
+        
+        
+        
+        //////////////////////////////////////////////CHECK//////////////////////////////////
+        /*
+         * Change the approach:
+         * Instead of generating a random position and then check all the colliders positions we may need to find the collider
+         * where the player is right now and then spawn the enemy there (it may result in something strange during the spawn)
+         *
+         * 
+         */
     }
 
+    public static void AddSpawnArea(SpawnAreaBehaviour l_Area)
+    {
+        m_SpawnAreas.Add(l_Area);
+    }
+
+    public static void RemoveSpawnArea(SpawnAreaBehaviour l_Area)
+    {
+        m_SpawnAreas.Remove(l_Area);
+    }
+    
     public static Vector3 getEnemyPosition()
     {
         
