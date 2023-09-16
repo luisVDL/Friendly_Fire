@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SocialPlatforms.Impl;
 using Random = UnityEngine.Random;
 
 public class NewEnemyManager : MonoBehaviour
@@ -186,42 +187,6 @@ public class NewEnemyManager : MonoBehaviour
     {
         Vector2 l_position = new Vector2(0,0); 
         
-        
-        /*do
-        {
-            int l_random = Random.Range(0,4);
-            switch (l_random)
-        {
-            case 0:
-                l_position =
-                    new Vector2(Random.Range(m_PlayerStatic.position.x + m_MinDistance, m_PlayerStatic.position.x + m_MaxDistance),
-                        Random.Range(m_PlayerStatic.position.y + m_MinDistance, m_PlayerStatic.position.y + m_MaxDistance));
-                break;
-                
-            case 1 :
-                l_position = 
-                    new Vector2(Random.Range(m_PlayerStatic.position.x - m_MaxDistance, m_PlayerStatic.position.x - m_MinDistance),
-                        Random.Range(m_PlayerStatic.position.y + m_MinDistance, m_PlayerStatic.position.y + m_MaxDistance));
-
-                break;
-                
-            case 2:
-                l_position =
-                    new Vector2(Random.Range(m_PlayerStatic.position.x + m_MinDistance, m_PlayerStatic.position.x + m_MaxDistance),
-                        Random.Range(m_PlayerStatic.position.y - m_MaxDistance, m_PlayerStatic.position.y - m_MinDistance));
-                break;
-                
-            default:
-                l_position =
-                    new Vector2(Random.Range(m_PlayerStatic.position.x - m_MaxDistance, m_PlayerStatic.position.x - m_MinDistance),
-                        Random.Range(m_PlayerStatic.position.y - m_MaxDistance, m_PlayerStatic.position.y - m_MinDistance));
-                break;
-                
-        }
-        } while (!CorrectSpawnPosition(l_position));
-        */
-
-
         BoxCollider2D l_collider;
         do
         {
@@ -250,37 +215,13 @@ public class NewEnemyManager : MonoBehaviour
         return l_Distance < m_MaxDistance && l_Distance > m_MinDistance;
     }
 
-    private bool CorrectSpawnPosition(Vector2 l_position)
+    private bool CorrectObjectSpawnPosition(Vector2 l_position)
     {
-        
-        /*if (l_position.x<m_DownLeftLimit.position.x || l_position.x>m_DownRightLimit.position.x) return false;
-        else if (l_position.y<m_DownLeftLimit.position.y ||l_position.y>m_UpRightLimit.position.y) return false;
-        */
-        /*
-        foreach(BoxCollider2D l_collider in m_TempleAreas)
-        {
-            if (l_collider.OverlapPoint(l_position)) return false;
-        }
-        */
-        //return m_TilemapCollider.OverlapPoint(l_position);
-
         foreach (Collider2D l_Collider in m_MapColliders)
         {
             if (l_Collider.OverlapPoint(l_position)) return true;
         }
         return false;
-        
-        
-        
-        
-        //////////////////////////////////////////////CHECK//////////////////////////////////
-        /*
-         * Change the approach:
-         * Instead of generating a random position and then check all the colliders positions we may need to find the collider
-         * where the player is right now and then spawn the enemy there (it may result in something strange during the spawn)
-         *
-         * 
-         */
     }
 
     public static void AddSpawnArea(SpawnAreaBehaviour l_Area)
@@ -308,8 +249,6 @@ public class NewEnemyManager : MonoBehaviour
                 l_FinalEnemyPosition = l_Enemy.transform.position;
             }
         }
-
-
         return l_FinalEnemyPosition;
     }
 
@@ -332,6 +271,16 @@ public class NewEnemyManager : MonoBehaviour
             m_CurrentMaxPointsPerWave += m_CurrentAddedPointsPerWave;
             IncreaseMaxNumberEnemiesPerWave();
         }
+    }
+
+
+    public static void AddCollectibleScore(int l_ScoreToAdd)
+    {
+        m_CurrentScore += l_ScoreToAdd;
+    }
+    public static int GetScore()
+    {
+        return m_CurrentScore;
     }
     
 }

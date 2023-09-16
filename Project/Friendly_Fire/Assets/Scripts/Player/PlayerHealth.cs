@@ -33,7 +33,7 @@ public class PlayerHealth : HealthSystem
     {
         //m_AudioSource.PlayOneShot(m_PlayerHurtClip);
         m_CurrentHealth -= l_Damage;
-        if (m_CurrentHealth < 0.0f)
+        if (m_CurrentHealth <= 0.0f)
         {
             m_CurrentHealth = 0.0f;
             PlayerTakesDamage.Invoke(m_CurrentHealth,m_MaxHealth);
