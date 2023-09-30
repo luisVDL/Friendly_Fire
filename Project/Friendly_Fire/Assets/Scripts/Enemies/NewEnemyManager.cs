@@ -103,6 +103,7 @@ public class NewEnemyManager : MonoBehaviour
             {
                 //Apply to the enemylists the increase for each wave
                 m_WaveNumber += 1;
+                if (m_WaveNumber == m_WavesToIncrementMaxRandomValue) m_MaxRandomValuePerWave += 1; /////////////////////// OJO CAMBIAR CUANDO HAYA MÁS DE 2 ENEMIGOS
                 m_Spawning = true;
                 ShowWaveNumber();
                 CreateWave();
@@ -128,6 +129,7 @@ public class NewEnemyManager : MonoBehaviour
         EnemyClassManager l_EnemyClass;
         while (l_currentCost<m_CurrentMaxPointsPerWave)
         {
+            if (m_EnemiesToSpawn.Count >= m_MaxNumberOfEnemies) break;
             l_Random = Random.Range(0, m_MaxRandomValuePerWave);
             l_EnemyClass = m_EnemyClassesSTATIC[l_Random];
             if (l_EnemyClass.CanSpawn())
@@ -158,8 +160,13 @@ public class NewEnemyManager : MonoBehaviour
         yield return new WaitForSeconds(m_WaveCooldown);
         foreach (AEnemy l_Enemy in l_Enemies)
         {
-            
-            l_Enemy.Spawn(GetRandomPosition(), m_PlayerStatic);
+            Vector3 l_position = GetRandomPosition();
+            while (l_position==Vector3.zero)
+            {
+                yield return new WaitForSeconds(0.2f);
+                l_position = GetRandomPosition();
+            }
+            l_Enemy.Spawn(l_position, m_PlayerStatic);
             yield return new WaitForSeconds(l_Enemy.getSpawnCooldown());
         }
 
@@ -190,6 +197,7 @@ public class NewEnemyManager : MonoBehaviour
         BoxCollider2D l_collider;
         do
         {
+            if (m_SpawnAreas.Count == 0) return Vector3.zero;
             if (m_SpawnAreas.Count == 1) m_IndexArea = 0;
 
             l_collider = m_SpawnAreas[m_IndexArea].GetCollider();
@@ -277,6 +285,8 @@ public class NewEnemyManager : MonoBehaviour
     public static void AddCollectibleScore(int l_ScoreToAdd)
     {
         m_CurrentScore += l_ScoreToAdd;
+        m_ScoreTextStatic.text = m_CurrentScore+"";
+        
     }
     public static int GetScore()
     {

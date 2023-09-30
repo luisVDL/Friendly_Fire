@@ -41,7 +41,7 @@ public class ExpManager : MonoBehaviour
     
     void Start()
     {
-        EnemySpawner.SubscribeToExpEvent(this);
+        //EnemySpawner.SubscribeToExpEvent(this);
         m_NextLevelExp = m_ExpToFirstLevel;
         //InitializePlayerAbsList();
         //All abs have three levels
@@ -204,7 +204,7 @@ public class ExpManager : MonoBehaviour
          l_R.Restart();   
         }
         Time.timeScale = 1f;
-        EnemySpawner.RestartGame();
+        //EnemySpawner.RestartGame();
         
 
     }
