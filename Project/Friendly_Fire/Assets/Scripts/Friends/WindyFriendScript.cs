@@ -49,8 +49,7 @@ public class WindyFriendScript : OffensiveFriend, IRestartable
         m_LastActivationTime = Time.time;
         m_Ability = true;
         m_Animator.SetTrigger("Attack");
-        //m_LastActivationTime = Time.time;
-                
+
         GameObject l_GO;
         WindyBullet l_Bullet;
 
@@ -64,11 +63,10 @@ public class WindyFriendScript : OffensiveFriend, IRestartable
         }
         catch (Exception e)
         {
-            print("Doesn't get the location");
+            print("Windy tried to attack but "+ e.Message);
         }
 
         m_Ability = false;
-        //StartCoroutine(ShootWind());
         return true;
     }
 
@@ -79,23 +77,7 @@ public class WindyFriendScript : OffensiveFriend, IRestartable
         return Quaternion.AngleAxis(l_RotationZ, Vector3.forward);
 
     }
-    private IEnumerator ShootWind()
-    {
-        for (int i = 0; i < m_Waves; i++)
-        {
-            if (i > 0) yield return new WaitForSeconds(m_CooldownBetweenWaves);
-            
-            //Shoot +
-            ShootVerticalNHorizontal();
-            
-            yield return new WaitForSeconds(m_CooldownBetweenDirections);
-            
-            //Shoot x
-            ShootDiagonal();
-        }
-        m_LastActivationTime = Time.time;
-        m_Ability = false;
-    }
+    
 
     public void Restart()
     {

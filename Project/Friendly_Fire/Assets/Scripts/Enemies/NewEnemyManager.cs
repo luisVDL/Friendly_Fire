@@ -9,6 +9,11 @@ using Random = UnityEngine.Random;
 
 public class NewEnemyManager : MonoBehaviour
 {
+    [Header("Player attack distance")] 
+    [SerializeField] private float m_PlayerRange = 10f;
+    private static float m_PlayerRangeSTATIC;
+    [Space]
+    
     [Header("General")] 
     [SerializeField] private int m_MaxNumberOfEnemies = 300;
     [SerializeField] private Transform m_Player;
@@ -76,6 +81,7 @@ public class NewEnemyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        m_PlayerRangeSTATIC = m_PlayerRange;
         m_SpawnAreas = new List<SpawnAreaBehaviour>();
         m_PlayerStatic = m_Player;
         m_ScoreTextStatic = m_ScoreText;
@@ -257,12 +263,20 @@ public class NewEnemyManager : MonoBehaviour
                 l_FinalEnemyPosition = l_Enemy.transform.position;
             }
         }
+
+        if (Vector3.Distance(l_FinalEnemyPosition, m_PlayerStatic.position) > m_PlayerRangeSTATIC)
+            throw new Exception("The enemies are too far to activate the skill");
         return l_FinalEnemyPosition;
     }
 
     public static Vector3 getRandomEnemyPosition()
     {
         int l_random = Random.Range(0, m_EnemiesAlive.Count);
+        Vector3 l_EnemyPosition = m_EnemiesAlive[l_random].transform.position;
+
+        if (Vector3.Distance(l_EnemyPosition, m_PlayerStatic.position) > m_PlayerRangeSTATIC)
+            throw new Exception("The enemies are too far to activate the skill");
+        //I need to get a random position that is close enough
         return m_EnemiesAlive[l_random].transform.position;
     }
 

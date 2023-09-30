@@ -53,7 +53,8 @@ public class BoneJoviFriendScript : OffensiveFriend, IRestartable
             }
             catch (Exception e)
             {
-                print("Doesn't get the location");
+                print("Bone Jovi tried to attack but " +e.Message);
+                break;
             }
             
             yield return new WaitForSeconds(m_CooldownShot);

@@ -47,7 +47,18 @@ public class SchlapFriendScript : AFriend
         {
             GameObject l_GO = m_BulletPool.EnableObject();
             SchlapBulletBehaviour l_Bullet=l_GO.GetComponent<SchlapBulletBehaviour>();
-            l_Bullet.FireBullet(transform.position-NewEnemyManager.getEnemyPosition(), transform.position, quaternion.identity);
+            try
+            {
+                
+                l_Bullet.FireBullet(transform.position-NewEnemyManager.getEnemyPosition(), transform.position, quaternion.identity);
+
+            }
+            catch (Exception e)
+            {
+                print("Schlap tried to attack but "+e.Message);
+                return false;
+            }
+            //l_Bullet.FireBullet(transform.position-NewEnemyManager.getEnemyPosition(), transform.position, quaternion.identity);
             l_Bullet.setParentSchlap(this);
             l_Bullet.setAreaPool(m_AreaPool);
             m_LastActivationTime = Time.time;

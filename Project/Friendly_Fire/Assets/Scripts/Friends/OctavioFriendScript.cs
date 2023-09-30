@@ -8,7 +8,7 @@ using UnityEngine;
 public class OctavioFriendScript : OffensiveFriend, IRestartable
 {
     [SerializeField] private PoolScript m_TentaclesPool;
-    [SerializeField] private int m_NumerOfTentacles = 5;
+    [SerializeField] private int m_NumberOfTentacles = 5;
 
 
     // Start is called before the first frame update
@@ -25,9 +25,8 @@ public class OctavioFriendScript : OffensiveFriend, IRestartable
         m_CooldownImage.fillAmount = (Time.time - m_LastActivationTime) / m_CurrentCooldown;
         if (Time.time > m_LastActivationTime + m_CurrentCooldown)
         {
-            m_Animator.SetTrigger("Attack");
             ActivateFriendAbility();
-            m_LastActivationTime = Time.time;
+            
         }
     }
 
@@ -43,9 +42,19 @@ public class OctavioFriendScript : OffensiveFriend, IRestartable
 
     public override bool ActivateFriendAbility()
     {
+        try
+        {
+            Vector3 l_Verify = NewEnemyManager.getEnemyPosition();
+        }
+        catch (Exception e)
+        {
+            print("Octavius tried to attack but "+e.Message);
+            return false;
+        }
+        m_Animator.SetTrigger("Attack");
         GameObject l_GO;
         OctavioTentacleBullet l_Tentacle;
-        for (int i= 0; i < m_NumerOfTentacles; i++)
+        for (int i= 0; i < m_NumberOfTentacles; i++)
         {
             l_GO = m_TentaclesPool.EnableObject();
             l_Tentacle = l_GO.GetComponent<OctavioTentacleBullet>();
@@ -63,7 +72,7 @@ public class OctavioFriendScript : OffensiveFriend, IRestartable
         }
         
 
-        
+        m_LastActivationTime = Time.time;
         return true;
     }
 
