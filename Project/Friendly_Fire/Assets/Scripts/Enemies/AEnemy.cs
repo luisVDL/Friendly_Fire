@@ -3,12 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 using Object = System.Object;
 
 public abstract class AEnemy : MonoBehaviour, IComparable
 {
 
     protected Transform m_PlayerToChase;
+    protected Transform m_ChasedObject;
+    protected Transform m_DizzyChaseObject;
     protected EnemyHealth m_EnemyHealth;
     protected bool m_Recoiling;
     protected int m_ID;
@@ -18,6 +21,12 @@ public abstract class AEnemy : MonoBehaviour, IComparable
     [SerializeField]protected float m_SpeedMultiplier = 1;
     [SerializeField]protected float m_SpawnCooldown;
     [SerializeField] protected int m_EnemyScore;
+    
+    [Header("NavMeshAgent")]
+    [SerializeField] protected NavMeshAgent m_NavMeshAgent;
+    [SerializeField] protected float m_AgentSpeed = 5f;
+    [SerializeField] protected float m_AgentAcceleration = 8f;
+    
     protected enum m_EnemyIAState{
         CHASE, ATTACKING, COOLDOWN, PREPARING, DEATH
     }
@@ -82,7 +91,16 @@ public abstract class AEnemy : MonoBehaviour, IComparable
         if (l_X<0) m_DizzyAnimation.SetActive(true); 
         else m_DizzyAnimation.SetActive(false);
         
-        m_Dizzy = l_X;
+        //m_Dizzy = l_X;
+        //we get a random object and we set the destination
+        if (l_X < 0)
+        {
+            m_ChasedObject = RandomItemGetter.GetRandomChasedObject();
+        }
+        else
+        {
+            m_ChasedObject = m_PlayerToChase;
+        }
     }
 
     public void SetSpeedMultiplier(float l_multiplier)
@@ -90,7 +108,8 @@ public abstract class AEnemy : MonoBehaviour, IComparable
         if(l_multiplier<1) m_SlowDownAnimation.SetActive(true);
         else m_SlowDownAnimation.SetActive(false);
         
-        m_SpeedMultiplier = l_multiplier;
+        //m_SpeedMultiplier = l_multiplier;
+        m_NavMeshAgent.speed = m_AgentSpeed * l_multiplier;
     }
     public void AddSubstate(ASubStatus l_SubStatus)
     {

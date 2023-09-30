@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4116875588622121038}
   - component: {fileID: 4116875588622121037}
   - component: {fileID: 4116875588622121024}
+  - component: {fileID: 6875310353918709444}
   m_Layer: 0
   m_Name: -98_Tree_2_Prefab
   m_TagString: Environment
@@ -134,6 +135,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.2752727, y: 0.5123857}
   m_EdgeRadius: 0
+--- !u!114 &6875310353918709444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4116875588622121036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &6440991019384316050
 GameObject:
   m_ObjectHideFlags: 0

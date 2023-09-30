@@ -349,6 +349,7 @@ GameObject:
   - component: {fileID: 3380965997351007377}
   - component: {fileID: 7445245733123040495}
   - component: {fileID: 5312357660359479427}
+  - component: {fileID: 882722648}
   m_Layer: 0
   m_Name: 98_SniperEnemy
   m_TagString: Enemy
@@ -465,6 +466,9 @@ MonoBehaviour:
   m_SpeedMultiplier: 1
   m_SpawnCooldown: 0.5
   m_EnemyScore: 50
+  m_NavMeshAgent: {fileID: 882722648}
+  m_AgentSpeed: 3.5
+  m_AgentAcceleration: 6
   m_DizzyAnimation: {fileID: 5312357659962819239}
   m_SlowDownAnimation: {fileID: 5312357659930062474}
   m_ChaseSpeed: 2.5
@@ -475,6 +479,28 @@ MonoBehaviour:
   m_RecoilFrames: 10
   m_RecoilSpeed: 4
   m_Sprite: {fileID: 3380965997561167539}
+--- !u!195 &882722648
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3380965997351007390}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &3380965997561167539
 GameObject:
   m_ObjectHideFlags: 0

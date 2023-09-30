@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ChaserEnemy : AEnemy, IRestartable
 {
@@ -12,6 +13,7 @@ public class ChaserEnemy : AEnemy, IRestartable
     private Animator m_Animator;
     private Rigidbody2D m_EnemyRB;
 
+    
 
     [Header("Hide sprites in spawn")]
     [SerializeField] private GameObject m_Sprite;
@@ -58,6 +60,11 @@ public class ChaserEnemy : AEnemy, IRestartable
         m_SubStatuses = new List<ASubStatus>();
         m_EnemyHealth = GetComponent<EnemyHealth>();
         ExpManager.AddRestartElement(this);
+        
+        //Navmesh
+        m_NavMeshAgent.updateRotation = false;
+        m_NavMeshAgent.updateUpAxis = false;
+        //m_NavMeshAgent.isStopped = true;
     }
 
     void Update()
@@ -78,9 +85,11 @@ public class ChaserEnemy : AEnemy, IRestartable
     
     public override void Chase()
     {
+        /*
         Vector2 l_direction = new Vector2(m_PlayerToChase.position.x - m_EnemyRB.position.x , m_PlayerToChase.position.y - m_EnemyRB.position.y )*m_Dizzy;
-        m_EnemyRB.position += l_direction.normalized * m_ChaseSpeed * m_SpeedMultiplier * Time.deltaTime;
-        
+        m_EnemyRB.position += l_direction.normalized * m_ChaseSpeed * m_SpeedMultiplier * Time.deltaTime;*/
+        m_NavMeshAgent.SetDestination(m_ChasedObject.position);
+
     }
 
     public override void Die()
@@ -90,6 +99,9 @@ public class ChaserEnemy : AEnemy, IRestartable
         m_Active = false;
         m_EnemyRB.velocity = new Vector2(0f, 0f);
         //m_Animator.SetTrigger("Death");
+        m_NavMeshAgent.isStopped = true;
+        m_NavMeshAgent.speed = 0.0f;
+        m_NavMeshAgent.acceleration = 0.0f;
         gameObject.SetActive(false);
     }
     
@@ -103,6 +115,7 @@ public class ChaserEnemy : AEnemy, IRestartable
         m_Recoiling = false;
         m_EnemyRB = GetComponent<Rigidbody2D>();
         m_PlayerToChase = l_Player;
+        m_ChasedObject = m_PlayerToChase;
         m_EnemyHealth.StartEnemyHealth();
         m_Active = true;
         m_Recoiling = false;
@@ -110,7 +123,9 @@ public class ChaserEnemy : AEnemy, IRestartable
         m_Sprite.SetActive(m_Active);
         gameObject.SetActive(m_Active);
         m_CurrentState = m_EnemyIAState.CHASE;
-        
+        m_NavMeshAgent.isStopped = false;
+        m_NavMeshAgent.speed = m_AgentSpeed;
+        m_NavMeshAgent.acceleration = m_AgentAcceleration;
         /*
         //spawn hide
         m_SpawnSprite.SetActive(false);
@@ -124,10 +139,14 @@ public class ChaserEnemy : AEnemy, IRestartable
     {
         m_EnemyHealth.TakeDamage(l_amount);
         //m_Animator.SetTrigger("TakeDamage");
+        
         if(m_EnemyHealth.IsAlive())StartCoroutine(Recoil(l_direction));
     }
     public override IEnumerator Recoil(Vector2 l_Direction)
     {
+        m_NavMeshAgent.speed = 0.0f;
+        m_NavMeshAgent.acceleration = 0.0f;
+        m_NavMeshAgent.isStopped = true;
         m_Recoiling = true;
         Vector2 l_recoil = l_Direction * m_RecoilSpeed;
         for (int i = 0; i < m_RecoilFrames; i++)
@@ -136,6 +155,9 @@ public class ChaserEnemy : AEnemy, IRestartable
             yield return new WaitForEndOfFrame();
         }
         m_Recoiling = false;
+        m_NavMeshAgent.isStopped = false;
+        m_NavMeshAgent.speed = m_AgentSpeed;
+        m_NavMeshAgent.acceleration = m_AgentAcceleration;
     }
     public override float GetDealtDamage()
     {
