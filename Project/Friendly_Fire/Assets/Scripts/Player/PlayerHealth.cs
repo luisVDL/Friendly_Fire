@@ -6,11 +6,19 @@ using UnityEngine.Events;
 
 public class PlayerHealth : HealthSystem
 {
+    [Header("General")]
     [SerializeField] private float m_CurrentHealth;
     [SerializeField] private float m_MaxHealth=100f;
     public UnityEvent<float, float> PlayerTakesDamage;
     public UnityEvent<float, float> PlayerRecovers;
     public UnityEvent PlayerDies;
+
+    [Space]
+    
+    [Header("Feedback Player Hurt")] 
+    [SerializeField] private SpriteRenderer m_PlayerSprite;
+    [SerializeField] private float m_TransitionTime = 0.2f;
+    [SerializeField] private Color m_HurtColor;
     
     /*
     [Header("Player Damaged")]
@@ -31,8 +39,10 @@ public class PlayerHealth : HealthSystem
 
     public override void TakeDamage(float l_Damage)
     {
+        
         //m_AudioSource.PlayOneShot(m_PlayerHurtClip);
         m_CurrentHealth -= l_Damage;
+        StartCoroutine(FeedbackPlayer());
         if (m_CurrentHealth <= 0.0f)
         {
             m_CurrentHealth = 0.0f;
@@ -43,6 +53,13 @@ public class PlayerHealth : HealthSystem
         {
             PlayerTakesDamage.Invoke(m_CurrentHealth,m_MaxHealth);
         }
+    }
+
+    private IEnumerator FeedbackPlayer()
+    {
+        m_PlayerSprite.color = m_HurtColor;
+        yield return new WaitForSeconds(m_TransitionTime);
+        m_PlayerSprite.color = Color.white;
     }
 
     public override void RecoverHealth(float l_Amount)
