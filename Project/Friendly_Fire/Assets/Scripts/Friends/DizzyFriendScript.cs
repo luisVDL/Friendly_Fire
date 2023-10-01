@@ -47,7 +47,7 @@ public class DizzyFriendScript : AFriend
         }
         catch (Exception e)
         {
-            print("Dizzy tried to attack but "+ e.Message);
+            //print("Dizzy tried to attack but "+ e.Message);
             return false;
         }
         return true;

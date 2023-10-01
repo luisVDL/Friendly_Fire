@@ -62,6 +62,10 @@ public class NewEnemyManager : MonoBehaviour
     [Header("Display")]
     [SerializeField] private TextMeshProUGUI m_WaveText;
     [SerializeField] private TextMeshProUGUI m_RemainingEnemiesText;
+    
+    [SerializeField] private TextMeshProUGUI m_WaveStartText;
+    private static bool ShowNextWaveText;
+    
     private static TextMeshProUGUI m_RemainingEnemiesTextSTATIC;
     private int m_CurrentWaveEnemies;
 
@@ -74,13 +78,23 @@ public class NewEnemyManager : MonoBehaviour
     private static int m_CurrentScore;
     private static TextMeshProUGUI m_ScoreTextStatic;
 
+    
+    //More Statistics
+    private static int m_ItemsCollected;
+    private static int m_EnemiesDefeated;
+    private static int m_FriendsCollected;
 
     //We use this variable to avoid executing two times the CreateWave method
     private bool m_Spawning;
     
-    // Start is called before the first frame update
+  
     void Start()
     {
+        ShowNextWaveText = true;
+        m_ItemsCollected = 0;
+        m_EnemiesDefeated = 0;
+        m_FriendsCollected = 0;
+        
         m_PlayerRangeSTATIC = m_PlayerRange;
         m_SpawnAreas = new List<SpawnAreaBehaviour>();
         m_PlayerStatic = m_Player;
@@ -100,10 +114,14 @@ public class NewEnemyManager : MonoBehaviour
         m_RemainingEnemiesTextSTATIC = m_RemainingEnemiesText;
 
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
+        if (ShowNextWaveText)
+        {
+            ShowNextWaveText = false;
+            StartCoroutine(ShowNextWaveCounter());
+        }
         if(m_SpawnTime<Time.time)
             if (m_EnemiesAlive.Count == 0 && !m_Spawning)
             {
@@ -283,6 +301,7 @@ public class NewEnemyManager : MonoBehaviour
 
     public static void DecreaseNumberOfEnemies(AEnemy l_Enemy)
     {
+        m_EnemiesDefeated += 1;
         m_EnemiesAlive.Remove(l_Enemy);
         m_CurrentScore+=l_Enemy.getScore();
         m_ScoreTextStatic.text = m_CurrentScore+"";
@@ -290,14 +309,33 @@ public class NewEnemyManager : MonoBehaviour
         if (m_EnemiesAlive.Count == 0)
         {
             m_SpawnTime = Time.time+ m_WaveCooldownSTATIC;
+            ShowNextWaveText = true;
             m_CurrentMaxPointsPerWave += m_CurrentAddedPointsPerWave;
             IncreaseMaxNumberEnemiesPerWave();
         }
+    }
+    
+
+    private IEnumerator ShowNextWaveCounter()
+    {
+        m_WaveStartText.gameObject.SetActive(true);
+        while (Time.time<=m_SpawnTime)
+        {
+            yield return new WaitForSeconds(0.1f);
+            m_WaveStartText.text = "Next Wave "+(m_SpawnTime -Time.time).ToString("0");;
+        }
+        m_WaveStartText.gameObject.SetActive(false);
+    }
+
+    public static void AddFriendtoCollected()
+    {
+        m_FriendsCollected += 1;
     }
 
 
     public static void AddCollectibleScore(int l_ScoreToAdd)
     {
+        m_ItemsCollected += 1;
         m_CurrentScore += l_ScoreToAdd;
         m_ScoreTextStatic.text = m_CurrentScore+"";
         
@@ -306,5 +344,25 @@ public class NewEnemyManager : MonoBehaviour
     {
         return m_CurrentScore;
     }
-    
+
+
+    public static int GetItemsCollected()
+    {
+        return m_ItemsCollected;
+    }
+
+    public static int GetEnemiesDefeated()
+    {
+        return m_EnemiesDefeated;
+    }
+
+    public static int GetFriendsCollected()
+    {
+        return m_FriendsCollected;
+    }
+
+    public static int GetWave()
+    {
+        return m_WaveNumber;
+    }
 }

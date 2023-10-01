@@ -63,7 +63,7 @@ public class WindyFriendScript : OffensiveFriend, IRestartable
         }
         catch (Exception e)
         {
-            print("Windy tried to attack but "+ e.Message);
+            //print("Windy tried to attack but "+ e.Message);
         }
 
         m_Ability = false;

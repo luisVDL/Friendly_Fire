@@ -63,12 +63,7 @@ public abstract class AFriend : MonoBehaviour
         m_FriendIsActive = false;
     }
     public abstract bool ActivateFriendAbility();
-    /*
-    public void setID(string l_newID)
-    {
-        m_ID = l_newID;
-    }
-    */
+   
 }
    
 

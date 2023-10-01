@@ -53,7 +53,7 @@ public class BoneJoviFriendScript : OffensiveFriend, IRestartable
             }
             catch (Exception e)
             {
-                print("Bone Jovi tried to attack but " +e.Message);
+                //print("Bone Jovi tried to attack but " +e.Message);
                 break;
             }
             

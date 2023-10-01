@@ -73,6 +73,7 @@ public class PickUpFriendSelectorManager : MonoBehaviour
     {
         if (m_Player.CanAddFriend())
         {
+            NewEnemyManager.AddFriendtoCollected();
             m_Player.AddFriendToNewPosition(m_Friend);
             Time.timeScale = 1f;
             m_FriendSelectorPanel.SetActive(false);

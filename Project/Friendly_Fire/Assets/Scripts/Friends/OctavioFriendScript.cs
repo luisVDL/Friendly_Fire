@@ -48,7 +48,7 @@ public class OctavioFriendScript : OffensiveFriend, IRestartable
         }
         catch (Exception e)
         {
-            print("Octavius tried to attack but "+e.Message);
+            //print("Octavius tried to attack but "+e.Message);
             return false;
         }
         m_Animator.SetTrigger("Attack");

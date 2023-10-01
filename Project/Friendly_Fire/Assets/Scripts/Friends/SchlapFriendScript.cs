@@ -55,7 +55,7 @@ public class SchlapFriendScript : AFriend
             }
             catch (Exception e)
             {
-                print("Schlap tried to attack but "+e.Message);
+                //print("Schlap tried to attack but "+e.Message);
                 return false;
             }
             //l_Bullet.FireBullet(transform.position-NewEnemyManager.getEnemyPosition(), transform.position, quaternion.identity);
