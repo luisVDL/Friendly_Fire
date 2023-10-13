@@ -70,7 +70,7 @@ public class SchlapBulletBehaviour : AbsBullet
         GameObject l_GO = m_Pool.EnableObject();
         SchlapAreaBehaviour l_Area = l_GO.GetComponent<SchlapAreaBehaviour>();
         l_Area.FireBullet(l_Position, l_Position, quaternion.identity);
-        l_Area.Spawn(m_Schlap.getAbilityTime());
+        l_Area.Spawn(m_Schlap.GetAbilityTime());
         DeactivateBullet();
     }
 

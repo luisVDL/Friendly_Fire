@@ -30,6 +30,8 @@ public abstract class AFriend : MonoBehaviour
     [SerializeField] protected FriendType m_FriendType;
     [SerializeField] protected Animator m_Animator;
 
+    
+
     //We need two cooldowns in order to be able to change it in runtime
     [SerializeField] protected float m_InitialCooldown;
     protected float m_CurrentCooldown;
@@ -38,6 +40,9 @@ public abstract class AFriend : MonoBehaviour
     
     //Not sure if I need it 
     //protected string m_ID;
+    
+    [Header("Friend Substates")] 
+    [SerializeField] private GameObject m_AttackUp;
 
     public FriendType getFriendType()
     {
@@ -48,10 +53,22 @@ public abstract class AFriend : MonoBehaviour
     {
         return m_CurrentCooldown;
     }
+    // we store the value in a variable and then we set it back (checking future issues)
+    public abstract void ApplyWolfyStatus(float l_DurationTime);
+    public abstract void DeApplyWolfyStatus();
 
-    public void ApplyCooldownMultiplier(float l_Multiplier)
+    protected void AttackUpAnimation()
     {
-        m_CurrentCooldown *= l_Multiplier;
+        m_AttackUp.SetActive(true);
+    }
+    protected void HideAttackUpAnimation()
+    {
+        m_AttackUp.SetActive(false);
+    }
+    
+    public void ReduceFriendActivationTime(float l_Amount)
+    {
+        m_LastActivationTime -= l_Amount;
     }
 
     public void ActivateFriend()

@@ -40,14 +40,19 @@ public class PlayerFriendManager : MonoBehaviour
     {
         if (!m_CurrentFriends.Contains(l_Friend))
         {
-            l_Friend.SetFriendPosition(getNextPosition());
+            l_Friend.SetFriendPosition(GetNextPosition());
             m_CurrentFriends.Add(l_Friend);
         }
         
     }
 
-    private Transform getNextPosition()
+    private Transform GetNextPosition()
     {
         return m_FriendPositions[m_CurrentFriends.Count];
+    }
+
+    public List<FriendScript> GetFriendScripts()
+    {
+        return m_CurrentFriends;
     }
 }
